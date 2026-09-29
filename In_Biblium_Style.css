@@ -1,0 +1,719 @@
+/* =========================================================
+   MAGISTER LUDORUM — HOMEBREWERY STYLE
+   Base editoriale riutilizzabile per le avventure
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Eagle+Lake&display=swap');
+
+/* ---------------------------------------------------------
+   PALETTE
+   --------------------------------------------------------- */
+
+.page {
+  --biblium-ink:       #1b2631;
+  --biblium-navy:      #24364b;
+  --biblium-blue:      #405d78;
+  --biblium-gold:      #b59652;
+  --biblium-gold-soft: #c9ad6a;
+  --biblium-burgundy:  #6f3038;
+  --biblium-paper:     #f4f0e8;
+  --biblium-paper-2:   #e9e2d5;
+  --biblium-grey:      #77736f;
+  --biblium-line:      #b9ab94;
+
+  background-color: var(--biblium-paper);
+  color: var(--biblium-ink);
+}
+
+
+
+/* =========================================================
+   LAYOUT EDITORIALE — derivato dal modello Dragonbane
+   Mantiene l'identità grafica Magister Ludorum / In Biblium
+   ========================================================= */
+
+/* COVERPAGE */
+.page:has(.titlepage) {
+  padding: 0;
+  column-count: 1;
+}
+
+.page:has(.titlepage) .columnWrapper {
+  display: block;
+  columns: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.page .titlepage {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  text-align: center;
+  overflow: hidden;
+}
+
+.page .titlepage > p {
+  text-indent: 0;
+}
+
+.page .titlepage .coverLogo {
+  position: absolute;
+  top: 28mm;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 49mm;
+  z-index: 6;
+  filter: drop-shadow(0 4px 7px rgba(0,0,0,.32));
+}
+
+.page .titlepage .coverLogo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.page .titlepage .coverTitle {
+  position: absolute;
+  left: 19mm;
+  right: 19mm;
+  bottom: 28mm;
+  z-index: 5;
+  padding: 7mm 9mm 6mm;
+  text-align: center;
+  background:
+    linear-gradient(135deg,
+      rgba(247,243,234,.95),
+      rgba(232,224,210,.91));
+  border-top: 2px solid var(--biblium-gold);
+  border-bottom: 2px solid var(--biblium-gold);
+  box-shadow: 0 5px 18px rgba(0,0,0,.28);
+}
+
+.page .titlepage .coverTitle::before,
+.page .titlepage .coverTitle::after {
+  content: "◆";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--biblium-gold);
+  font-size: 14px;
+}
+
+.page .titlepage .coverTitle::before { left: 4mm; }
+.page .titlepage .coverTitle::after  { right: 4mm; }
+
+.page .titlepage .coverTitle h1 {
+  margin: 0 0 2mm;
+  padding: 0;
+  border: 0;
+  color: var(--biblium-navy);
+  font-family: "Eagle Lake", "Cinzel", serif;
+  font-size: 37pt;
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: .035em;
+  text-transform: none;
+  text-shadow:
+    0 1px 0 #fff7e7,
+    0 2px 2px rgba(0,0,0,.13);
+}
+
+.page .titlepage .coverTitle h1::after {
+  display: none;
+}
+
+.page .titlepage .coverTitle h3 {
+  margin: 1mm 0 3mm;
+  color: var(--biblium-burgundy);
+  font-family: "Cinzel", serif;
+  font-size: 14pt;
+  font-weight: 700;
+  letter-spacing: .10em;
+  border: 0;
+}
+
+.page .titlepage .coverTitle p {
+  width: 125mm;
+  max-width: 80%;
+  margin: 1mm auto 0;
+  color: #34302a;
+  font-size: 9.5pt;
+  line-height: 1.25;
+  text-align: center;
+  text-indent: 0;
+}
+
+/* FULL-WIDTH ELEMENTS */
+.page .rowSplit,
+.page .wide,
+.page .wideImage,
+.page .wideTable {
+  display: block !important;
+  column-span: all;
+  width: 100%;
+  clear: both;
+  margin: 1em 0 1.15em;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.page .wideImage {
+  line-height: 0;
+}
+
+.page .wideImage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  object-fit: contain;
+}
+
+.page .wideImage + *,
+.page .wideTable + *,
+.page .wide + *,
+.page .rowSplit + * {
+  margin-top: 0;
+}
+
+.page .wideTable table {
+  width: 100%;
+  margin: 0;
+}
+
+.page .wideFigure {
+  display: block !important;
+  column-span: all;
+  width: 100%;
+  clear: both;
+  margin: 1em 0 1.2em;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.page .wideFigure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.page .wideFigure .caption,
+.page .caption {
+  margin-top: 1.5mm;
+  color: var(--biblium-grey);
+  font-family: "Cinzel", serif;
+  font-size: 7.5pt;
+  font-style: italic;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* FLOATING ART WITH TEXT WRAP */
+.page .floatLeft,
+.page .floatRight {
+  width: 43%;
+  max-width: 74mm;
+  margin-top: 2mm;
+  margin-bottom: 3mm;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.page .floatLeft {
+  float: left;
+  margin-right: 5mm;
+  margin-left: 0;
+}
+
+.page .floatRight {
+  float: right;
+  margin-left: 5mm;
+  margin-right: 0;
+}
+
+.page .floatLeft img,
+.page .floatRight img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.page .floatSoft {
+  shape-outside: ellipse(48% 48% at 50% 50%);
+  shape-margin: 3mm;
+}
+
+.page .floatRound {
+  shape-outside: circle(48% at 50% 50%);
+  shape-margin: 3mm;
+}
+
+.page .floatRect {
+  shape-outside: margin-box;
+  shape-margin: 2mm;
+}
+
+.page .clearFloat {
+  display: block;
+  clear: both;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* EDITORIAL TABLES — stat blocks excluded */
+.page table:not(.monster table) {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.page table:not(.monster table) thead {
+  border-bottom: 2px solid var(--biblium-gold);
+}
+
+.page table:not(.monster table) th {
+  padding: 4px 6px;
+  font-family: "Cinzel", serif;
+  font-size: 8.5pt;
+  vertical-align: bottom;
+}
+
+.page table:not(.monster table) td {
+  padding: 4px 6px;
+  border-top: 1px solid rgba(111,88,53,.28);
+  vertical-align: top;
+}
+
+.page table:not(.monster table) tbody tr:nth-child(odd) {
+  background-color: rgba(181,150,82,.11);
+}
+
+.page table:not(.monster table) tbody tr:nth-child(even) {
+  background-color: rgba(255,255,255,.18);
+}
+
+.page table.dense th,
+.page table.dense td {
+  padding: 2px 4px;
+  font-size: .92em;
+}
+
+@media print {
+  .page:has(.titlepage) {
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+/* ---------------------------------------------------------
+   HEADINGS
+   --------------------------------------------------------- */
+
+.page h1,
+.page h2,
+.page h3,
+.page h4 {
+  color: var(--biblium-navy);
+}
+
+.page h1 {
+  letter-spacing: .02em;
+}
+
+.page h1::after {
+  background-color: var(--biblium-gold);
+}
+
+.page h2 {
+  border-bottom-color: var(--biblium-gold);
+}
+
+.page h3 {
+  color: var(--biblium-burgundy);
+}
+
+.page h4 {
+  color: var(--biblium-blue);
+}
+
+.page a {
+  color: var(--biblium-burgundy);
+  text-decoration-color: var(--biblium-gold);
+}
+
+/* ---------------------------------------------------------
+   TABLES
+   --------------------------------------------------------- */
+
+.page table {
+  color: var(--biblium-ink);
+}
+
+.page table tbody tr:nth-child(odd) {
+  background-color: rgba(181,150,82,.12);
+}
+
+.page table thead,
+.page table th {
+  color: var(--biblium-navy);
+}
+
+.page table th {
+  font-weight: bold;
+}
+
+/* ---------------------------------------------------------
+   READ-ALOUD
+   --------------------------------------------------------- */
+
+.page .readaloud {
+  margin: 8px 0 10px;
+  padding: 9px 12px 9px 15px;
+  background: linear-gradient(90deg, rgba(181,150,82,.13), rgba(255,255,255,.18));
+  border-left: 4px solid var(--biblium-gold);
+  border-top: 1px solid rgba(181,150,82,.35);
+  border-bottom: 1px solid rgba(181,150,82,.35);
+  box-shadow: 1px 2px 4px rgba(0,0,0,.08);
+  font-style: italic;
+  color: #252525;
+}
+
+.page .readaloud p:first-child { margin-top: 0; }
+.page .readaloud p:last-child  { margin-bottom: 0; }
+
+/* ---------------------------------------------------------
+   DM NOTE
+   --------------------------------------------------------- */
+
+.page .dmnote {
+  margin: 8px 0;
+  padding: 8px 11px;
+  background-color: rgba(36,54,75,.075);
+  border-left: 4px solid var(--biblium-navy);
+  border-radius: 2px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,.07);
+}
+
+.page .dmnote h5,
+.page .dmnote h4,
+.page .dmnote h3 {
+  margin-top: 0;
+  color: var(--biblium-navy);
+}
+
+/* ---------------------------------------------------------
+   CLUE
+   --------------------------------------------------------- */
+
+.page .clue {
+  margin: 8px 0;
+  padding: 8px 11px;
+  background-color: rgba(201,173,106,.16);
+  border: 1px solid rgba(181,150,82,.65);
+  border-left: 5px solid var(--biblium-gold);
+  box-shadow: 1px 1px 3px rgba(0,0,0,.06);
+}
+
+.page .clue h5,
+.page .clue h4 {
+  margin-top: 0;
+  color: var(--biblium-burgundy);
+}
+
+/* ---------------------------------------------------------
+   IN BIBLIUM RULE
+   --------------------------------------------------------- */
+
+.page .bibliumRule {
+  margin: 10px 0;
+  padding: 10px 14px;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(36,54,75,.08), rgba(181,150,82,.12));
+  border-top: 2px solid var(--biblium-gold);
+  border-bottom: 2px solid var(--biblium-gold);
+}
+
+.page .bibliumRule h5,
+.page .bibliumRule h4,
+.page .bibliumRule h3 {
+  margin: 0 0 4px;
+  color: var(--biblium-navy);
+  font-variant: small-caps;
+  letter-spacing: .08em;
+}
+
+.page .bibliumRule p:last-child { margin-bottom: 0; }
+
+/* ---------------------------------------------------------
+   VIOLATION
+   --------------------------------------------------------- */
+
+.page .violation {
+  margin: 8px 0;
+  padding: 8px 11px;
+  background-color: rgba(111,48,56,.075);
+  border-left: 4px solid var(--biblium-burgundy);
+}
+
+.page .violation strong { color: var(--biblium-burgundy); }
+
+/* ---------------------------------------------------------
+   PLAYER HANDOUT / DELIVERABLE
+   {{far,fa-file}} = materiale consegnabile ai giocatori
+   --------------------------------------------------------- */
+
+.page .handout {
+  margin: 10px 0;
+  padding: 9px 12px;
+  background: linear-gradient(135deg, rgba(181,150,82,.15), rgba(244,240,232,.85));
+  border: 1px solid var(--biblium-gold);
+  border-left: 5px solid var(--biblium-burgundy);
+  box-shadow: 1px 2px 4px rgba(0,0,0,.08);
+}
+
+.page .handout > h5:first-child {
+  margin-top: 0;
+  margin-bottom: 6px;
+  color: var(--biblium-burgundy);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(181,150,82,.45);
+}
+
+/* ---------------------------------------------------------
+   DOCUMENT / LETTER
+   --------------------------------------------------------- */
+
+.page .letter {
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(244,240,232,.94), rgba(231,221,200,.90));
+  border: 1px solid var(--biblium-line);
+  box-shadow: 1px 2px 5px rgba(0,0,0,.10);
+  color: #302a24;
+}
+
+.page .letter p { text-indent: 0; }
+
+/* ---------------------------------------------------------
+   LOCATION HEADER
+   --------------------------------------------------------- */
+
+.page .location {
+  margin: 3px 0 8px;
+  padding: 5px 8px 4px;
+  border-top: 2px solid var(--biblium-gold);
+  border-bottom: 1px solid var(--biblium-gold);
+  background: linear-gradient(90deg, rgba(181,150,82,.12), transparent);
+}
+
+.page .location h2 {
+  margin: 0;
+  border: none;
+  color: var(--biblium-navy);
+}
+
+/* ---------------------------------------------------------
+   MOTTO
+   --------------------------------------------------------- */
+
+.page .motto {
+  margin: 12px 0;
+  text-align: center;
+  color: var(--biblium-navy);
+  font-family: 'Cinzel', 'Nodesto', serif;
+  font-size: 1.35em;
+  font-variant: small-caps;
+  letter-spacing: .10em;
+}
+
+.page .motto::before,
+.page .motto::after {
+  content: '◆';
+  color: var(--biblium-gold);
+  padding: 0 10px;
+}
+
+/* =========================================================
+   PHB 2024 MONSTER FRAME
+   ========================================================= */
+
+.page .monster.frame {
+  padding: 6px 9px;
+  background-image: none;
+  background-color: #F0EDE8;
+  border-image: none;
+  border: 3px double #777;
+  border-radius: 2px;
+  box-shadow: 2px 2px 7px rgba(80,80,80,.38);
+  color: var(--biblium-ink);
+}
+
+.page .monster.frame h2 {
+  width: 100%;
+  column-span: all;
+  font-family: 'Open Sans', sans-serif;
+  font-variant: small-caps;
+  font-size: 25px;
+  padding-bottom: 2px;
+  margin-bottom: 4px;
+  color: var(--biblium-navy);
+  border-bottom: 1px solid var(--biblium-gold);
+}
+
+.page .monster.frame h2 + p {
+  color: var(--biblium-ink);
+  font-size: 13px;
+}
+
+.page .monster.frame .block { margin-top: 0; }
+
+.page .monster.frame h3 {
+  color: var(--biblium-burgundy);
+  font-size: 18px;
+  border-bottom-color: rgba(181,150,82,.55);
+}
+
+.page .monster.frame em,
+.page .monster.frame p,
+.page .monster.frame small-caps,
+.page .monster.frame p + small-caps {
+  font-size: 13px;
+}
+
+.page .monster.frame p { line-height: 1.23em; }
+
+.page .monster.frame .stats {
+  color: var(--biblium-navy);
+  margin-top: 5px;
+}
+
+.page .monster.frame .stats .vitals {
+  columns: 2;
+  column-gap: 10px;
+}
+
+.page .monster.frame .stats .tables {
+  columns: 3;
+  column-gap: 5px;
+}
+
+.page .monster.frame .stats .tables table {
+  border-collapse: separate;
+  border-spacing: 0 2px;
+}
+
+.page .monster.frame .stats .tables table th {
+  color: #666;
+  font-weight: normal;
+  font-size: 8px;
+  position: relative;
+  top: 4px;
+}
+
+.page .monster.frame .stats .tables table td { padding-top: 2px; }
+
+.page .monster.frame .stats .tables table tr:nth-of-type(odd) td {
+  background-color: #D9D0CA;
+}
+
+.page .monster.frame .stats .tables table tr:nth-of-type(odd) td:nth-of-type(-n+2) {
+  background-color: #E8E2D6;
+  font-weight: bold;
+  font-variant: small-caps;
+  padding-left: 4px;
+}
+
+.page .monster.frame .stats .tables table tr:nth-of-type(even) td {
+  background-color: #CBC6C8;
+}
+
+.page .monster.frame .stats .tables table tr:nth-of-type(even) td:nth-of-type(-n+2) {
+  background-color: #D2D6CE;
+  font-weight: bold;
+  font-variant: small-caps;
+  padding-left: 4px;
+}
+
+.page .monster.frame strong { color: #252525; }
+.page .monster.frame .stats strong { color: var(--biblium-navy); }
+
+/* ---------------------------------------------------------
+   ARTIST CREDITS
+   --------------------------------------------------------- */
+
+.artist {
+  position: absolute !important;
+  bottom: 100px;
+  left: 32px;
+  width: 400px;
+  transform: rotate(-90deg);
+  transform-origin: bottom left;
+  text-align: left;
+  font-family: ScalySansSmallCapsRemake;
+  font-size: 11px;
+  text-transform: none;
+  color: #888;
+  z-index: 204;
+}
+
+/* ---------------------------------------------------------
+   FOOTER
+   --------------------------------------------------------- */
+
+.footer {
+  --lines: 1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25px;
+  padding-top: calc(6px / var(--lines));
+  line-height: .4em;
+  text-align: center;
+  color: var(--biblium-gold-soft);
+  font-family: 'nodesto';
+  font-variant: all-small-caps;
+  font-size: calc(2em - calc(.1em * var(--lines)));
+  z-index: 205;
+  -webkit-text-stroke-width: .7px;
+  -webkit-text-stroke-color: var(--biblium-navy);
+  text-shadow: 0 1px 2px rgba(0,0,0,.18);
+}
+
+.footer a { color: var(--biblium-gold-soft); }
+
+/* ---------------------------------------------------------
+   UTILITIES
+   --------------------------------------------------------- */
+
+.page .label {
+  font-variant: small-caps;
+  font-weight: bold;
+  letter-spacing: .04em;
+  color: var(--biblium-navy);
+}
+
+.page .noIndent p { text-indent: 0; }
+.page .center { text-align: center; }
+.page .small { font-size: .88em; }
+.page .tight p { margin-top: 2px; margin-bottom: 2px; }
+
+.page .monster.frame,
+.page .readaloud,
+.page .dmnote,
+.page .clue,
+.page .bibliumRule,
+.page .letter,
+.page .handout {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}

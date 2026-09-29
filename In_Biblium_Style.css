@@ -1,11 +1,11 @@
 /* =========================================================
    MAGISTER LUDORUM — HOMEBREWERY STYLE
-   Base editoriale riutilizzabile per le avventure
+   Base editoriale riutilizzabile per le avventure DnD 5.5e
    ========================================================= */
 
 /* Web fonts — core + medieval/display families */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cinzel+Decorative:wght@400;700;900&family=Eagle+Lake&family=Kings&family=MedievalSharp&display=swap');
-@import url('https://fonts.cdnfonts.com/css/cloister-black');
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cinzel+Decorative:wght@400;700;900&family=Eagle+Lake&family=Kings&family=MedievalSharp&display=swap");
+@import url("https://fonts.cdnfonts.com/css/cloister-black");
 
 /* Zenda — webfont */
 @font-face {
@@ -29,7 +29,8 @@
   font-family: "Breathe Fire";
   src:
     local("Breathe Fire"),
-    url("https://raw.githubusercontent.com/apk01k/in-biblium/main/fonts/BreatheFire-65pg.ttf") format("opentype");
+    url("https://raw.githubusercontent.com/apk01k/in-biblium/main/fonts/BreatheFire-65pg.ttf")
+      format("truetype");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -40,32 +41,28 @@
    --------------------------------------------------------- */
 
 .page {
-  --biblium-ink:       #1b2631;
-  --biblium-navy:      #24364b;
-  --biblium-blue:      #405d78;
-  --biblium-gold:      #b59652;
+  --biblium-ink: #1b2631;
+  --biblium-navy: #24364b;
+  --biblium-blue: #405d78;
+  --biblium-gold: #b59652;
   --biblium-gold-soft: #c9ad6a;
-  --biblium-burgundy:  #6f3038;
-  --biblium-paper:     #f4f0e8;
-  --biblium-paper-2:   #e9e2d5;
-  --biblium-grey:      #77736f;
-  --biblium-line:      #b9ab94;
+  --biblium-burgundy: #6f3038;
+  --biblium-paper: #f4f0e8;
+  --biblium-paper-2: #e9e2d5;
+  --biblium-grey: #77736f;
+  --biblium-line: #b9ab94;
 
   /* Font families */
-  --font-medievalsharp:     "MedievalSharp", serif;
+  --font-medievalsharp: "MedievalSharp", serif;
   --font-cinzel-decorative: "Cinzel Decorative", "Cinzel", serif;
-  --font-kings:             "Kings", cursive;
-  --font-zenda:             "Zenda", "MedievalSharp", serif;
-  --font-breathe-fire:      "Breathe Fire", "MedievalSharp", fantasy;
-  --font-cloister-black:    "Cloister Black", "MedievalSharp", fantasy;
+  --font-kings: "Kings", cursive;
+  --font-zenda: "Zenda", "MedievalSharp", serif;
+  --font-breathe-fire: "Breathe Fire", "MedievalSharp", fantasy;
+  --font-cloister-black: "Cloister Black", "MedievalSharp", fantasy;
 
   background-color: var(--biblium-paper);
   color: var(--biblium-ink);
 }
-
-
-
-
 
 /* =========================================================
    FONT UTILITIES
@@ -78,34 +75,22 @@
    {{fontCloisterBlack Testo}}
    ========================================================= */
 
-.page .fontMedievalSharp {
-  font-family: var(--font-medievalsharp);
-}
+.page .fontMedievalSharp  { font-family: var(--font-medievalsharp); }
 
-.page .fontCinzelDecorative {
-  font-family: var(--font-cinzel-decorative);
-}
+.page .fontCinzelDecorative  { font-family: var(--font-cinzel-decorative); }
 
-.page .fontKings {
-  font-family: var(--font-kings);
-}
+.page .fontKings  { font-family: var(--font-kings); }
 
-.page .fontZenda {
-  font-family: var(--font-zenda);
-}
+.page .fontZenda  { font-family: var(--font-zenda); }
 
-.page .fontBreatheFire {
-  font-family: var(--font-breathe-fire);
-}
+.page .fontBreatheFire  { font-family: var(--font-breathe-fire); }
 
-.page .fontCloisterBlack {
-  font-family: var(--font-cloister-black);
-}
+.page .fontCloisterBlack  { font-family: var(--font-cloister-black); }
 
 /* Varianti utili per titoli e capilettera */
 .page .displayMedieval {
   font-family: var(--font-cinzel-decorative);
-  letter-spacing: .035em;
+  letter-spacing: 0.035em;
 }
 
 .page .blackletter {
@@ -115,10 +100,10 @@
 
 .page .ornateInitial {
   float: left;
-  margin: .06em .10em 0 0;
+  margin: 0.06em 0.1em 0 0;
   font-family: var(--font-zenda);
   font-size: 3.6em;
-  line-height: .72;
+  line-height: 0.72;
   color: var(--biblium-burgundy);
 }
 
@@ -150,9 +135,7 @@
   overflow: hidden;
 }
 
-.page .titlepage > p {
-  text-indent: 0;
-}
+.page .titlepage > p  { text-indent: 0; }
 
 .page .titlepage .coverLogo {
   position: absolute;
@@ -162,7 +145,7 @@
   width: auto;
   z-index: 6;
   text-align: center;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
@@ -201,13 +184,12 @@
   text-align: center;
 
   /* Pergamena antica */
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(249,243,220,.98) 0%,
-      rgba(232,218,180,.97) 58%,
-      rgba(199,174,120,.96) 100%
-    );
+  background: radial-gradient(
+    ellipse at center,
+    rgba(249, 243, 220, 0.98) 0%,
+    rgba(232, 218, 180, 0.97) 58%,
+    rgba(199, 174, 120, 0.96) 100%
+  );
 
   /* Cornice */
   border: 3px double var(--biblium-gold);
@@ -216,9 +198,9 @@
   outline-offset: -7px;
 
   box-shadow:
-    0 6px 14px rgba(0,0,0,.30),
-    inset 0 0 22px rgba(84,57,32,.20),
-    inset 0 0 4px rgba(255,255,255,.60);
+    0 6px 14px rgba(0, 0, 0, 0.3),
+    inset 0 0 22px rgba(84, 57, 32, 0.2),
+    inset 0 0 4px rgba(255, 255, 255, 0.6);
 }
 
 .page .titlepage .coverTitle::before,
@@ -234,7 +216,7 @@
 
   text-shadow:
     0 1px 0 #f8edcf,
-    0 2px 2px rgba(0,0,0,.18);
+    0 2px 2px rgba(0, 0, 0, 0.18);
 }
 
 .page .titlepage .coverTitle::before {
@@ -255,21 +237,19 @@
   color: var(--biblium-navy);
   font-family: "Breathe Fire", "Zenda", "MedievalSharp", serif;
   font-size: 40pt;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.05;
 
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 
   text-shadow:
     0 1px 0 #fff7e7,
     0 2px 0 var(--biblium-gold),
-    0 3px 3px rgba(0,0,0,.25);
+    0 3px 3px rgba(0, 0, 0, 0.25);
 }
 
-.page .titlepage .coverTitle h1::after {
-  display: none;
-}
+.page .titlepage .coverTitle h1::after  { display: none; }
 
 .page .titlepage .coverTitle h3 {
   margin: 1mm 0 3mm;
@@ -277,7 +257,7 @@
   font-family: "Cinzel", serif;
   font-size: 14pt;
   font-weight: 700;
-  letter-spacing: .10em;
+  letter-spacing: 0.1em;
   border: 0;
 }
 
@@ -292,13 +272,178 @@
   text-indent: 0;
 }
 
+/*
+  AUDIT 2026-09:
+  - tabelle normali: singola colonna e break-inside:auto;
+  - .wideTable riservato alle sole tabelle realmente a doppia colonna;
+  - quattro layout immagine standardizzati;
+  - Breathe Fire corretto come TrueType e senza bold sintetico;
+  - stampa cover fissata a formato A4 reale.
+*/
+
 /* =========================================================
-   FULL-WIDTH ELEMENTS
-   Solo gli elementi esplicitamente marcati come "wide"
-   attraversano entrambe le colonne.
+   LAYOUT IMMAGINI E TABELLE
+   Quattro casistiche editoriali standard:
+   1. float in una colonna
+   2. immagine sul divisorio tra le colonne
+   3. immagine wide nel flusso
+   4. immagine wide ancorata in basso
    ========================================================= */
 
-/* Immagini, tabelle e figure realmente a doppia colonna */
+/* =========================================================
+   1. IMMAGINE IN UNA COLONNA CON TESTO ATTORNO
+   ========================================================= */
+
+.page .floatLeft,
+.page .floatRight {
+  float: left;
+  width: 43%;
+  max-width: 74mm;
+
+  margin-top: 2mm;
+  margin-bottom: 3mm;
+
+  box-sizing: border-box;
+
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.page .floatLeft {
+  float: left;
+  margin-right: 5mm;
+  margin-left: 0;
+}
+
+.page .floatRight {
+  float: right;
+  margin-left: 5mm;
+  margin-right: 0;
+}
+
+.page .floatLeft > p,
+.page .floatRight > p {
+  margin: 0;
+  padding: 0;
+}
+
+.page .floatLeft img,
+.page .floatRight img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+/* PNG di personaggi, creature, oggetti */
+.page .floatSoft {
+  shape-outside: ellipse(48% 48% at 50% 50%);
+  shape-margin: 3mm;
+}
+
+/* Sigilli, medaglioni, simboli */
+.page .floatRound {
+  shape-outside: circle(48% at 50% 50%);
+  shape-margin: 3mm;
+}
+
+/* Immagini rettangolari */
+.page .floatRect {
+  shape-outside: margin-box;
+  shape-margin: 2mm;
+}
+
+/* Termine esplicito del wrapping */
+.page .clearFloat {
+  display: block;
+  clear: both;
+
+  width: 100%;
+  height: 0;
+
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================================
+   2. IMMAGINE SUL DIVISORIO TRA LE DUE COLONNE
+   ---------------------------------------------------------
+   Una singola immagine assoluta viene centrata sulla pagina.
+   Due float invisibili, uno per colonna, riservano lo spazio
+   necessario affinché il testo le giri attorno.
+   ========================================================= */
+
+.page .centerArt {
+  position: absolute;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 70mm;
+
+  z-index: 6;
+  pointer-events: none;
+}
+
+.page .centerArt > p {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.page .centerArt img {
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+
+  margin: 0 auto;
+}
+
+/*
+  Valori di default calibrati per centerArt largo circa 70 mm.
+  Se si cambia molto la dimensione dell'immagine, adeguare
+  width/height dei due wrapper nel Markdown con proprietà inline.
+*/
+.page .centerWrapLeft,
+.page .centerWrapRight {
+  height: 70mm;
+  width: 30mm;
+
+  background: transparent;
+
+  shape-margin: 2.5mm;
+
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.page .centerWrapLeft {
+  float: right;
+
+  margin-right: -1mm;
+  margin-left: 2mm;
+
+  shape-outside: ellipse(72% 50% at 100% 50%);
+}
+
+.page .centerWrapRight {
+  float: left;
+
+  margin-left: -1mm;
+  margin-right: 2mm;
+
+  shape-outside: ellipse(72% 50% at 0% 50%);
+}
+
+/* =========================================================
+   3. ELEMENTI A LARGHEZZA DOPPIA COLONNA NEL FLUSSO
+   Il testo precedente termina sopra l'elemento; dopo l'elemento
+   riprende il normale flusso a due colonne.
+   ========================================================= */
+
 .page .wideImage,
 .page .wideTable,
 .page .wideFigure {
@@ -318,14 +463,8 @@
   page-break-inside: avoid;
 }
 
-
-/* ---------------------------------------------------------
-   IMMAGINE A LARGHEZZA PAGINA
-   --------------------------------------------------------- */
-
-.page .wideImage {
-  line-height: 0;
-}
+/* Immagine wide */
+.page .wideImage  { line-height: 0; }
 
 .page .wideImage > p {
   margin: 0;
@@ -345,14 +484,8 @@
   object-fit: contain;
 }
 
-
-/* ---------------------------------------------------------
-   TABELLA A LARGHEZZA PAGINA
-   --------------------------------------------------------- */
-
-.page .wideTable {
-  line-height: inherit;
-}
+/* Tabella wide */
+.page .wideTable  { line-height: inherit; }
 
 .page .wideTable table {
   width: 100%;
@@ -363,11 +496,7 @@
   box-sizing: border-box;
 }
 
-
-/* ---------------------------------------------------------
-   FIGURA A LARGHEZZA PAGINA + DIDASCALIA
-   --------------------------------------------------------- */
-
+/* Figura wide con didascalia */
 .page .wideFigure img {
   display: block;
 
@@ -392,18 +521,71 @@
   text-align: center;
 }
 
-
 /* Riduce lo spazio dopo gli elementi wide */
 .page .wideImage + *,
 .page .wideTable + *,
-.page .wideFigure + * {
-  margin-top: 0;
-}
-
+.page .wideFigure + *  { margin-top: 0; }
 
 /* =========================================================
-   NORMAL TABLES
-   Le tabelle normali rimangono nella singola colonna.
+   4. IMMAGINE WIDE NELLA PARTE BASSA DELLA PAGINA
+   ---------------------------------------------------------
+   L'immagine è ancorata al fondo e il testo viene limitato
+   superiormente da un marker di pagina.
+   ========================================================= */
+
+/* Marker: non viene stampato */
+.page .bottomArtSmall,
+.page .bottomArtMedium,
+.page .bottomArtLarge  { display: none !important; }
+
+/*
+  Tre preset di spazio riservato al testo.
+  Scegliere il marker in base all'altezza prevista dell'immagine.
+*/
+.page:has(.bottomArtSmall) .columnWrapper  { height: 210mm !important; }
+
+.page:has(.bottomArtMedium) .columnWrapper  { height: 190mm !important; }
+
+.page:has(.bottomArtLarge) .columnWrapper  { height: 165mm !important; }
+
+.page .wideImageBottom {
+  position: absolute;
+
+  left: 18mm;
+  right: 18mm;
+  bottom: 18mm;
+
+  z-index: 5;
+
+  box-sizing: border-box;
+  line-height: 0;
+
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.page .wideImageBottom > p {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.page .wideImageBottom img {
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+  max-height: 90mm;
+  height: auto;
+
+  margin: 0 auto;
+
+  object-fit: contain;
+}
+
+/* =========================================================
+   TABELLE EDITORIALI NORMALI
+   Rimangono nella singola colonna salvo wrapper .wideTable.
    ========================================================= */
 
 .page table:not(.monster table) {
@@ -414,19 +596,27 @@
 
   box-sizing: border-box;
 
+  /* Importante: una tabella lunga può spezzarsi tra colonne.
+     Evita che venga spinta interamente in una "terza colonna". */
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+/* Mantiene unita almeno la singola riga */
+.page table:not(.monster table) tr {
   break-inside: avoid;
   page-break-inside: avoid;
 }
 
-.page table:not(.monster table) thead {
-  border-bottom: 2px solid var(--biblium-gold);
-}
+.page table:not(.monster table) thead  { border-bottom: 2px solid var(--biblium-gold); }
 
 .page table:not(.monster table) th {
   padding: 4px 6px;
 
+  color: var(--biblium-navy);
   font-family: "Cinzel", serif;
   font-size: 8.5pt;
+  font-weight: bold;
 
   vertical-align: bottom;
 }
@@ -434,123 +624,41 @@
 .page table:not(.monster table) td {
   padding: 4px 6px;
 
-  border-top: 1px solid rgba(111,88,53,.28);
+  border-top: 1px solid rgba(111, 88, 53, 0.28);
 
   vertical-align: top;
+
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
-.page table:not(.monster table) tbody tr:nth-child(odd) {
-  background-color: rgba(181,150,82,.11);
-}
+.page table:not(.monster table) tbody tr:nth-child(odd)  { background-color: rgba(181, 150, 82, 0.11); }
 
-.page table:not(.monster table) tbody tr:nth-child(even) {
-  background-color: rgba(255,255,255,.18);
-}
-
+.page table:not(.monster table) tbody tr:nth-child(even)  { background-color: rgba(255, 255, 255, 0.18); }
 
 /* Tabelle compatte */
 .page table.dense th,
 .page table.dense td {
   padding: 2px 4px;
-  font-size: .92em;
+  font-size: 0.92em;
 }
 
-
-/* =========================================================
-   FLOATING ART WITH TEXT WRAP
-   ========================================================= */
-
-.page .floatLeft,
-.page .floatRight {
-  width: 43%;
-  max-width: 74mm;
-
-  margin-top: 2mm;
-  margin-bottom: 3mm;
-
-  box-sizing: border-box;
-
+/* Utility opzionale: solo per piccole tabelle da tenere unite */
+.page .keepTogether,
+.page table.keepTogether {
   break-inside: avoid;
   page-break-inside: avoid;
 }
-
-.page .floatLeft {
-  float: left;
-
-  margin-right: 5mm;
-  margin-left: 0;
-}
-
-.page .floatRight {
-  float: right;
-
-  margin-left: 5mm;
-  margin-right: 0;
-}
-
-.page .floatLeft > p,
-.page .floatRight > p {
-  margin: 0;
-}
-
-.page .floatLeft img,
-.page .floatRight img {
-  display: block;
-
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-
-  margin: 0;
-}
-
-
-/* PNG di personaggi, creature, oggetti */
-.page .floatSoft {
-  shape-outside: ellipse(48% 48% at 50% 50%);
-  shape-margin: 3mm;
-}
-
-
-/* Sigilli, medaglioni, simboli */
-.page .floatRound {
-  shape-outside: circle(48% at 50% 50%);
-  shape-margin: 3mm;
-}
-
-
-/* Immagini rettangolari */
-.page .floatRect {
-  shape-outside: margin-box;
-  shape-margin: 2mm;
-}
-
-
-/* Termine esplicito del wrapping */
-.page .clearFloat {
-  display: block;
-
-  clear: both;
-
-  width: 100%;
-  height: 0;
-
-  margin: 0;
-  padding: 0;
-}
-
 
 /* =========================================================
    PRINT
    ========================================================= */
 
 @media print {
-
   .page:has(.titlepage) {
-    height: 100vh;
-    width: 100vw;
+    width: 210mm;
+    height: 297mm;
   }
-
 }
 
 /* ---------------------------------------------------------
@@ -560,54 +668,21 @@
 .page h1,
 .page h2,
 .page h3,
-.page h4 {
-  color: var(--biblium-navy);
-}
+.page h4  { color: var(--biblium-navy); }
 
-.page h1 {
-  letter-spacing: .02em;
-}
+.page h1  { letter-spacing: 0.02em; }
 
-.page h1::after {
-  background-color: var(--biblium-gold);
-}
+.page h1::after  { background-color: var(--biblium-gold); }
 
-.page h2 {
-  border-bottom-color: var(--biblium-gold);
-}
+.page h2  { border-bottom-color: var(--biblium-gold); }
 
-.page h3 {
-  color: var(--biblium-burgundy);
-}
+.page h3  { color: var(--biblium-burgundy); }
 
-.page h4 {
-  color: var(--biblium-blue);
-}
+.page h4  { color: var(--biblium-blue); }
 
 .page a {
   color: var(--biblium-burgundy);
   text-decoration-color: var(--biblium-gold);
-}
-
-/* ---------------------------------------------------------
-   TABLES
-   --------------------------------------------------------- */
-
-.page table {
-  color: var(--biblium-ink);
-}
-
-.page table tbody tr:nth-child(odd) {
-  background-color: rgba(181,150,82,.12);
-}
-
-.page table thead,
-.page table th {
-  color: var(--biblium-navy);
-}
-
-.page table th {
-  font-weight: bold;
 }
 
 /* ---------------------------------------------------------
@@ -617,16 +692,16 @@
 .page .readaloud {
   margin: 8px 0 10px;
   padding: 9px 12px 9px 15px;
-  background: linear-gradient(90deg, rgba(181,150,82,.13), rgba(255,255,255,.18));
+  background: linear-gradient(90deg, rgba(181, 150, 82, 0.13), rgba(255, 255, 255, 0.18));
   border-left: 4px solid var(--biblium-gold);
-  border-top: 1px solid rgba(181,150,82,.35);
-  border-bottom: 1px solid rgba(181,150,82,.35);
-  box-shadow: 1px 2px 4px rgba(0,0,0,.08);
+  border-top: 1px solid rgba(181, 150, 82, 0.35);
+  border-bottom: 1px solid rgba(181, 150, 82, 0.35);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.08);
   font-style: italic;
   color: #252525;
 }
 
-.page .readaloud p:first-child { margin-top: 0; }
+.page .readaloud p:first-child  { margin-top: 0; }
 .page .readaloud p:last-child  { margin-bottom: 0; }
 
 /* ---------------------------------------------------------
@@ -636,10 +711,10 @@
 .page .dmnote {
   margin: 8px 0;
   padding: 8px 11px;
-  background-color: rgba(36,54,75,.075);
+  background-color: rgba(36, 54, 75, 0.075);
   border-left: 4px solid var(--biblium-navy);
   border-radius: 2px;
-  box-shadow: 1px 1px 3px rgba(0,0,0,.07);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.07);
 }
 
 .page .dmnote h5,
@@ -656,10 +731,10 @@
 .page .clue {
   margin: 8px 0;
   padding: 8px 11px;
-  background-color: rgba(201,173,106,.16);
-  border: 1px solid rgba(181,150,82,.65);
+  background-color: rgba(201, 173, 106, 0.16);
+  border: 1px solid rgba(181, 150, 82, 0.65);
   border-left: 5px solid var(--biblium-gold);
-  box-shadow: 1px 1px 3px rgba(0,0,0,.06);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 .page .clue h5,
@@ -676,7 +751,7 @@
   margin: 10px 0;
   padding: 10px 14px;
   text-align: center;
-  background: linear-gradient(135deg, rgba(36,54,75,.08), rgba(181,150,82,.12));
+  background: linear-gradient(135deg, rgba(36, 54, 75, 0.08), rgba(181, 150, 82, 0.12));
   border-top: 2px solid var(--biblium-gold);
   border-bottom: 2px solid var(--biblium-gold);
 }
@@ -687,10 +762,10 @@
   margin: 0 0 4px;
   color: var(--biblium-navy);
   font-variant: small-caps;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 }
 
-.page .bibliumRule p:last-child { margin-bottom: 0; }
+.page .bibliumRule p:last-child  { margin-bottom: 0; }
 
 /* ---------------------------------------------------------
    VIOLATION
@@ -699,11 +774,11 @@
 .page .violation {
   margin: 8px 0;
   padding: 8px 11px;
-  background-color: rgba(111,48,56,.075);
+  background-color: rgba(111, 48, 56, 0.075);
   border-left: 4px solid var(--biblium-burgundy);
 }
 
-.page .violation strong { color: var(--biblium-burgundy); }
+.page .violation strong  { color: var(--biblium-burgundy); }
 
 /* ---------------------------------------------------------
    PLAYER HANDOUT / DELIVERABLE
@@ -713,22 +788,22 @@
 .page .handout {
   margin: 10px 0;
   padding: 9px 12px;
-  background: linear-gradient(135deg, rgba(181,150,82,.15), rgba(244,240,232,.85));
+  background: linear-gradient(135deg, rgba(181, 150, 82, 0.15), rgba(244, 240, 232, 0.85));
   border: 1px solid var(--biblium-gold);
   border-left: 5px solid var(--biblium-burgundy);
-  box-shadow: 1px 2px 4px rgba(0,0,0,.08);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .page .handout > h5:first-child {
   margin-top: 0;
   margin-bottom: 6px;
   color: var(--biblium-burgundy);
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 10px;
   font-weight: bold;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(181,150,82,.45);
+  border-bottom: 1px solid rgba(181, 150, 82, 0.45);
 }
 
 /* ---------------------------------------------------------
@@ -737,13 +812,13 @@
 
 .page .letter {
   padding: 12px 16px;
-  background: linear-gradient(135deg, rgba(244,240,232,.94), rgba(231,221,200,.90));
+  background: linear-gradient(135deg, rgba(244, 240, 232, 0.94), rgba(231, 221, 200, 0.9));
   border: 1px solid var(--biblium-line);
-  box-shadow: 1px 2px 5px rgba(0,0,0,.10);
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
   color: #302a24;
 }
 
-.page .letter p { text-indent: 0; }
+.page .letter p  { text-indent: 0; }
 
 /* ---------------------------------------------------------
    LOCATION HEADER
@@ -754,7 +829,7 @@
   padding: 5px 8px 4px;
   border-top: 2px solid var(--biblium-gold);
   border-bottom: 1px solid var(--biblium-gold);
-  background: linear-gradient(90deg, rgba(181,150,82,.12), transparent);
+  background: linear-gradient(90deg, rgba(181, 150, 82, 0.12), transparent);
 }
 
 .page .location h2 {
@@ -771,15 +846,15 @@
   margin: 12px 0;
   text-align: center;
   color: var(--biblium-navy);
-  font-family: 'Cinzel', 'Nodesto', serif;
+  font-family: "Cinzel", "Nodesto", serif;
   font-size: 1.35em;
   font-variant: small-caps;
-  letter-spacing: .10em;
+  letter-spacing: 0.1em;
 }
 
 .page .motto::before,
 .page .motto::after {
-  content: '◆';
+  content: "◆";
   color: var(--biblium-gold);
   padding: 0 10px;
 }
@@ -791,18 +866,18 @@
 .page .monster.frame {
   padding: 6px 9px;
   background-image: none;
-  background-color: #F0EDE8;
+  background-color: #f0ede8;
   border-image: none;
   border: 3px double #777;
   border-radius: 2px;
-  box-shadow: 2px 2px 7px rgba(80,80,80,.38);
+  box-shadow: 2px 2px 7px rgba(80, 80, 80, 0.38);
   color: var(--biblium-ink);
 }
 
 .page .monster.frame h2 {
   width: 100%;
   column-span: all;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-variant: small-caps;
   font-size: 25px;
   padding-bottom: 2px;
@@ -816,22 +891,20 @@
   font-size: 13px;
 }
 
-.page .monster.frame .block { margin-top: 0; }
+.page .monster.frame .block  { margin-top: 0; }
 
 .page .monster.frame h3 {
   color: var(--biblium-burgundy);
   font-size: 18px;
-  border-bottom-color: rgba(181,150,82,.55);
+  border-bottom-color: rgba(181, 150, 82, 0.55);
 }
 
 .page .monster.frame em,
 .page .monster.frame p,
 .page .monster.frame small-caps,
-.page .monster.frame p + small-caps {
-  font-size: 13px;
-}
+.page .monster.frame p + small-caps  { font-size: 13px; }
 
-.page .monster.frame p { line-height: 1.23em; }
+.page .monster.frame p  { line-height: 1.23em; }
 
 .page .monster.frame .stats {
   color: var(--biblium-navy);
@@ -861,32 +934,28 @@
   top: 4px;
 }
 
-.page .monster.frame .stats .tables table td { padding-top: 2px; }
+.page .monster.frame .stats .tables table td  { padding-top: 2px; }
 
-.page .monster.frame .stats .tables table tr:nth-of-type(odd) td {
-  background-color: #D9D0CA;
-}
+.page .monster.frame .stats .tables table tr:nth-of-type(odd) td  { background-color: #d9d0ca; }
 
-.page .monster.frame .stats .tables table tr:nth-of-type(odd) td:nth-of-type(-n+2) {
-  background-color: #E8E2D6;
+.page .monster.frame .stats .tables table tr:nth-of-type(odd) td:nth-of-type(-n + 2) {
+  background-color: #e8e2d6;
   font-weight: bold;
   font-variant: small-caps;
   padding-left: 4px;
 }
 
-.page .monster.frame .stats .tables table tr:nth-of-type(even) td {
-  background-color: #CBC6C8;
-}
+.page .monster.frame .stats .tables table tr:nth-of-type(even) td  { background-color: #cbc6c8; }
 
-.page .monster.frame .stats .tables table tr:nth-of-type(even) td:nth-of-type(-n+2) {
-  background-color: #D2D6CE;
+.page .monster.frame .stats .tables table tr:nth-of-type(even) td:nth-of-type(-n + 2) {
+  background-color: #d2d6ce;
   font-weight: bold;
   font-variant: small-caps;
   padding-left: 4px;
 }
 
-.page .monster.frame strong { color: #252525; }
-.page .monster.frame .stats strong { color: var(--biblium-navy); }
+.page .monster.frame strong  { color: #252525; }
+.page .monster.frame .stats strong  { color: var(--biblium-navy); }
 
 /* ---------------------------------------------------------
    ARTIST CREDITS
@@ -919,9 +988,7 @@
 .page .artist a,
 .page .artist span,
 .page .artist strong,
-.page .artist em {
-  color: var(--biblium-gold) !important;
-}
+.page .artist em  { color: var(--biblium-gold) !important; }
 
 /* ---------------------------------------------------------
    FOOTER
@@ -935,19 +1002,19 @@
   width: 100%;
   height: 25px;
   padding-top: calc(6px / var(--lines));
-  line-height: .4em;
+  line-height: 0.4em;
   text-align: center;
   color: var(--biblium-gold-soft);
-  font-family: 'nodesto';
+  font-family: "nodesto";
   font-variant: all-small-caps;
-  font-size: calc(2em - calc(.1em * var(--lines)));
+  font-size: calc(2em - calc(0.1em * var(--lines)));
   z-index: 205;
-  -webkit-text-stroke-width: .7px;
+  -webkit-text-stroke-width: 0.7px;
   -webkit-text-stroke-color: var(--biblium-navy);
-  text-shadow: 0 1px 2px rgba(0,0,0,.18);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
 }
 
-.footer a { color: var(--biblium-gold-soft); }
+.footer a  { color: var(--biblium-gold-soft); }
 
 /* ---------------------------------------------------------
    UTILITIES
@@ -956,14 +1023,17 @@
 .page .label {
   font-variant: small-caps;
   font-weight: bold;
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
   color: var(--biblium-navy);
 }
 
-.page .noIndent p { text-indent: 0; }
-.page .center { text-align: center; }
-.page .small { font-size: .88em; }
-.page .tight p { margin-top: 2px; margin-bottom: 2px; }
+.page .noIndent p  { text-indent: 0; }
+.page .center  { text-align: center; }
+.page .small  { font-size: 0.88em; }
+.page .tight p {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
 
 .page .monster.frame,
 .page .readaloud,
@@ -974,4 +1044,184 @@
 .page .handout {
   break-inside: avoid;
   page-break-inside: avoid;
+}
+/* =========================================================
+   PRINT-FRIENDLY MODE
+   Attivazione globale:
+   {{printFriendly}}
+   ========================================================= */
+
+.page .printFriendly  { display: none !important; }
+
+/* ---------------------------------------------------------
+   PAGINA
+   --------------------------------------------------------- */
+
+.pages:has(.printFriendly) .page {
+  background: white !important;
+  background-image: none !important;
+
+  color: #111 !important;
+
+  box-shadow: none !important;
+}
+
+/* ---------------------------------------------------------
+   TESTO E TITOLI
+   --------------------------------------------------------- */
+
+.pages:has(.printFriendly) .page h1,
+.pages:has(.printFriendly) .page h2,
+.pages:has(.printFriendly) .page h3,
+.pages:has(.printFriendly) .page h4,
+.pages:has(.printFriendly) .page h5,
+.pages:has(.printFriendly) .page h6 {
+  color: #111 !important;
+  text-shadow: none !important;
+}
+
+.pages:has(.printFriendly) .page a {
+  color: #111 !important;
+  text-decoration-color: #555 !important;
+}
+
+/* Il titolo mantiene Breathe Fire */
+.pages:has(.printFriendly) .titlepage .coverTitle h1 {
+  font-family: "Breathe Fire", "Zenda", "MedievalSharp", serif;
+
+  color: #111 !important;
+  text-shadow: none !important;
+}
+
+/* ---------------------------------------------------------
+   COPERTINA
+   --------------------------------------------------------- */
+
+.pages:has(.printFriendly) .titlepage .coverTitle {
+  background: white !important;
+
+  border: 3px double #222 !important;
+  outline: 1px solid #555 !important;
+
+  box-shadow: none !important;
+}
+
+.pages:has(.printFriendly) .titlepage .coverTitle::before,
+.pages:has(.printFriendly) .titlepage .coverTitle::after {
+  color: #111 !important;
+  text-shadow: none !important;
+}
+
+/* ---------------------------------------------------------
+   IMMAGINI
+   Mantiene le illustrazioni ma le rende adatte alla stampa.
+   --------------------------------------------------------- */
+
+.pages:has(.printFriendly) .page img  { filter: grayscale(1) contrast(1.08); }
+
+/* Logo: B/N ma conservato */
+.pages:has(.printFriendly) .coverLogo img  { filter: grayscale(1) contrast(1.15); }
+
+/* ---------------------------------------------------------
+   TABELLE
+   --------------------------------------------------------- */
+
+.pages:has(.printFriendly) .page table:not(.monster table)  { color: #111 !important; }
+
+.pages:has(.printFriendly) .page table:not(.monster table) thead  { border-bottom: 2px solid #222 !important; }
+
+.pages:has(.printFriendly) .page table:not(.monster table) th  { color: #111 !important; }
+
+.pages:has(.printFriendly) .page table:not(.monster table) td  { border-top-color: #999 !important; }
+
+.pages:has(.printFriendly) .page table:not(.monster table) tbody tr:nth-child(odd)  { background: #eeeeee !important; }
+
+.pages:has(.printFriendly) .page table:not(.monster table) tbody tr:nth-child(even)  { background: white !important; }
+
+/* ---------------------------------------------------------
+   BOX EDITORIALI
+   --------------------------------------------------------- */
+
+.pages:has(.printFriendly) .readaloud,
+.pages:has(.printFriendly) .dmnote,
+.pages:has(.printFriendly) .clue,
+.pages:has(.printFriendly) .bibliumRule,
+.pages:has(.printFriendly) .violation,
+.pages:has(.printFriendly) .handout,
+.pages:has(.printFriendly) .letter {
+  background: white !important;
+
+  color: #111 !important;
+
+  border-color: #666 !important;
+
+  box-shadow: none !important;
+}
+
+/* Distinzione ancora visibile senza usare molto toner */
+
+.pages:has(.printFriendly) .readaloud  { border-left: 4px solid #555 !important; }
+
+.pages:has(.printFriendly) .dmnote  { border-left: 4px solid #222 !important; }
+
+.pages:has(.printFriendly) .clue  { border-left: 5px double #444 !important; }
+
+.pages:has(.printFriendly) .violation  { border-left: 4px solid #777 !important; }
+
+.pages:has(.printFriendly) .handout {
+  border: 1px solid #666 !important;
+  border-left: 5px double #222 !important;
+}
+
+/* ---------------------------------------------------------
+   MONSTER FRAME
+   --------------------------------------------------------- */
+
+.pages:has(.printFriendly) .monster.frame {
+  background: white !important;
+
+  color: #111 !important;
+
+  border: 2px solid #333 !important;
+
+  box-shadow: none !important;
+}
+
+.pages:has(.printFriendly) .monster.frame h2,
+.pages:has(.printFriendly) .monster.frame h3,
+.pages:has(.printFriendly) .monster.frame .stats,
+.pages:has(.printFriendly) .monster.frame strong  { color: #111 !important; }
+
+.pages:has(.printFriendly) .monster.frame .stats .tables table td  { background: white !important; }
+
+/* ---------------------------------------------------------
+   FOOTER E ARTIST CREDIT
+   --------------------------------------------------------- */
+
+.pages:has(.printFriendly) .footer,
+.pages:has(.printFriendly) .footer a {
+  color: #333 !important;
+
+  -webkit-text-stroke-width: 0 !important;
+  text-shadow: none !important;
+}
+
+.pages:has(.printFriendly) .artist,
+.pages:has(.printFriendly) .artist * {
+  color: #444 !important;
+  text-shadow: none !important;
+}
+
+/* ---------------------------------------------------------
+   STAMPA
+   --------------------------------------------------------- */
+
+@media print {
+  .pages:has(.printFriendly) .page {
+    width: 210mm;
+    height: 297mm;
+
+    print-color-adjust: economy;
+    -webkit-print-color-adjust: economy;
+  }
 }

@@ -3,7 +3,37 @@
    Base editoriale riutilizzabile per le avventure
    ========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Eagle+Lake&display=swap');
+/* Web fonts — core + medieval/display families */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cinzel+Decorative:wght@400;700;900&family=Eagle+Lake&family=Kings&family=MedievalSharp&display=swap');
+@import url('https://fonts.cdnfonts.com/css/cloister-black');
+
+/* Zenda — webfont */
+@font-face {
+  font-family: "Zenda";
+  src:
+    url("https://db.onlinewebfonts.com/t/04c147be2982c43d8e52ae303f1481ae.woff2") format("woff2"),
+    url("https://db.onlinewebfonts.com/t/04c147be2982c43d8e52ae303f1481ae.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/*
+  Breathe Fire
+  -----------------------------------------------------------
+  Per stabilità il CSS punta alla copia ospitata nella repository
+  dell'utente. Caricare la propria copia autorizzata come:
+  /fonts/Breathe_Fire.otf
+*/
+@font-face {
+  font-family: "Breathe Fire";
+  src:
+    local("Breathe Fire"),
+    url("https://raw.githubusercontent.com/apk01k/in-biblium/main/fonts/BreatheFire-65pg.ttf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 
 /* ---------------------------------------------------------
    PALETTE
@@ -21,11 +51,76 @@
   --biblium-grey:      #77736f;
   --biblium-line:      #b9ab94;
 
+  /* Font families */
+  --font-medievalsharp:     "MedievalSharp", serif;
+  --font-cinzel-decorative: "Cinzel Decorative", "Cinzel", serif;
+  --font-kings:             "Kings", cursive;
+  --font-zenda:             "Zenda", "MedievalSharp", serif;
+  --font-breathe-fire:      "Breathe Fire", "MedievalSharp", fantasy;
+  --font-cloister-black:    "Cloister Black", "MedievalSharp", fantasy;
+
   background-color: var(--biblium-paper);
   color: var(--biblium-ink);
 }
 
 
+
+
+
+/* =========================================================
+   FONT UTILITIES
+   Uso Homebrewery:
+   {{fontMedievalSharp Testo}}
+   {{fontCinzelDecorative Testo}}
+   {{fontKings Testo}}
+   {{fontZenda Testo}}
+   {{fontBreatheFire Testo}}
+   {{fontCloisterBlack Testo}}
+   ========================================================= */
+
+.page .fontMedievalSharp {
+  font-family: var(--font-medievalsharp);
+}
+
+.page .fontCinzelDecorative {
+  font-family: var(--font-cinzel-decorative);
+}
+
+.page .fontKings {
+  font-family: var(--font-kings);
+}
+
+.page .fontZenda {
+  font-family: var(--font-zenda);
+}
+
+.page .fontBreatheFire {
+  font-family: var(--font-breathe-fire);
+}
+
+.page .fontCloisterBlack {
+  font-family: var(--font-cloister-black);
+}
+
+/* Varianti utili per titoli e capilettera */
+.page .displayMedieval {
+  font-family: var(--font-cinzel-decorative);
+  letter-spacing: .035em;
+}
+
+.page .blackletter {
+  font-family: var(--font-cloister-black);
+  font-weight: 300;
+}
+
+.page .ornateInitial {
+  float: left;
+  margin: .06em .10em 0 0;
+  font-family: var(--font-zenda);
+  font-size: 3.6em;
+  line-height: .72;
+  color: var(--biblium-burgundy);
+}
 
 /* =========================================================
    LAYOUT EDITORIALE — derivato dal modello Dragonbane
@@ -61,65 +156,115 @@
 
 .page .titlepage .coverLogo {
   position: absolute;
-  top: 28mm;
+  top: 20%;
   left: 50%;
-  transform: translateX(-50%);
-  width: 49mm;
+  right: 0;
+  width: auto;
   z-index: 6;
-  filter: drop-shadow(0 4px 7px rgba(0,0,0,.32));
+  text-align: center;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+}
+
+.page .titlepage .coverLogo > p {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-indent: 0;
 }
 
 .page .titlepage .coverLogo img {
   display: block;
-  width: 100%;
+  width: 380px;
   height: auto;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .page .titlepage .coverTitle {
   position: absolute;
-  left: 19mm;
-  right: 19mm;
-  bottom: 28mm;
+
+  /* centratura reale */
+  left: 50%;
+  right: auto;
+  bottom: 26mm;
+  transform: translateX(-50%);
+
+  /* larghezza controllata */
+  width: 174mm;
+  max-width: calc(100% - 36mm);
+  box-sizing: border-box;
+
   z-index: 5;
-  padding: 7mm 9mm 6mm;
+
+  padding: 9mm 12mm 8mm;
   text-align: center;
+
+  /* Pergamena antica */
   background:
-    linear-gradient(135deg,
-      rgba(247,243,234,.95),
-      rgba(232,224,210,.91));
-  border-top: 2px solid var(--biblium-gold);
-  border-bottom: 2px solid var(--biblium-gold);
-  box-shadow: 0 5px 18px rgba(0,0,0,.28);
+    radial-gradient(
+      ellipse at center,
+      rgba(249,243,220,.98) 0%,
+      rgba(232,218,180,.97) 58%,
+      rgba(199,174,120,.96) 100%
+    );
+
+  /* Cornice */
+  border: 3px double var(--biblium-gold);
+
+  outline: 1px solid var(--biblium-burgundy);
+  outline-offset: -7px;
+
+  box-shadow:
+    0 6px 14px rgba(0,0,0,.30),
+    inset 0 0 22px rgba(84,57,32,.20),
+    inset 0 0 4px rgba(255,255,255,.60);
 }
 
 .page .titlepage .coverTitle::before,
 .page .titlepage .coverTitle::after {
-  content: "◆";
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--biblium-gold);
-  font-size: 14px;
+
+  color: var(--biblium-burgundy);
+
+  font-family: "Cinzel Decorative", serif;
+  font-size: 24px;
+
+  text-shadow:
+    0 1px 0 #f8edcf,
+    0 2px 2px rgba(0,0,0,.18);
 }
 
-.page .titlepage .coverTitle::before { left: 4mm; }
-.page .titlepage .coverTitle::after  { right: 4mm; }
+.page .titlepage .coverTitle::before {
+  content: "❧";
+  left: 5mm;
+}
+
+.page .titlepage .coverTitle::after {
+  content: "❧";
+  right: 5mm;
+  transform: translateY(-50%) scaleX(-1);
+}
 
 .page .titlepage .coverTitle h1 {
-  margin: 0 0 2mm;
+  margin: 0 0 3mm;
   padding: 0;
   border: 0;
   color: var(--biblium-navy);
-  font-family: "Eagle Lake", "Cinzel", serif;
-  font-size: 37pt;
-  font-weight: 400;
-  line-height: 1.06;
-  letter-spacing: .035em;
-  text-transform: none;
+  font-family: "Breathe Fire", "Zenda", "MedievalSharp", serif;
+  font-size: 40pt;
+  font-weight: 700;
+  line-height: 1.05;
+
+  letter-spacing: .06em;
+  text-transform: uppercase;
+
   text-shadow:
     0 1px 0 #fff7e7,
-    0 2px 2px rgba(0,0,0,.13);
+    0 2px 0 var(--biblium-gold),
+    0 3px 3px rgba(0,0,0,.25);
 }
 
 .page .titlepage .coverTitle h1::after {
@@ -147,130 +292,130 @@
   text-indent: 0;
 }
 
-/* FULL-WIDTH ELEMENTS */
-.page .rowSplit,
-.page .wide,
+/* =========================================================
+   FULL-WIDTH ELEMENTS
+   Solo gli elementi esplicitamente marcati come "wide"
+   attraversano entrambe le colonne.
+   ========================================================= */
+
+/* Immagini, tabelle e figure realmente a doppia colonna */
 .page .wideImage,
-.page .wideTable {
+.page .wideTable,
+.page .wideFigure {
   display: block !important;
+
   column-span: all;
-  width: 100%;
   clear: both;
+
+  width: 100%;
+  max-width: 100%;
+
   margin: 1em 0 1.15em;
+
+  box-sizing: border-box;
+
   break-inside: avoid;
   page-break-inside: avoid;
 }
+
+
+/* ---------------------------------------------------------
+   IMMAGINE A LARGHEZZA PAGINA
+   --------------------------------------------------------- */
 
 .page .wideImage {
   line-height: 0;
 }
 
+.page .wideImage > p {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
 .page .wideImage img {
   display: block;
+
   width: 100%;
+  max-width: 100%;
   height: auto;
-  margin: 0;
+
+  margin: 0 auto;
+
   object-fit: contain;
 }
 
-.page .wideImage + *,
-.page .wideTable + *,
-.page .wide + *,
-.page .rowSplit + * {
-  margin-top: 0;
+
+/* ---------------------------------------------------------
+   TABELLA A LARGHEZZA PAGINA
+   --------------------------------------------------------- */
+
+.page .wideTable {
+  line-height: inherit;
 }
 
 .page .wideTable table {
   width: 100%;
+  max-width: 100%;
+
   margin: 0;
+
+  box-sizing: border-box;
 }
 
-.page .wideFigure {
-  display: block !important;
-  column-span: all;
-  width: 100%;
-  clear: both;
-  margin: 1em 0 1.2em;
-  break-inside: avoid;
-  page-break-inside: avoid;
-}
+
+/* ---------------------------------------------------------
+   FIGURA A LARGHEZZA PAGINA + DIDASCALIA
+   --------------------------------------------------------- */
 
 .page .wideFigure img {
   display: block;
+
   width: 100%;
+  max-width: 100%;
   height: auto;
-  margin: 0;
+
+  margin: 0 auto;
 }
 
 .page .wideFigure .caption,
 .page .caption {
   margin-top: 1.5mm;
+
   color: var(--biblium-grey);
+
   font-family: "Cinzel", serif;
   font-size: 7.5pt;
   font-style: italic;
   line-height: 1.2;
+
   text-align: center;
 }
 
-/* FLOATING ART WITH TEXT WRAP */
-.page .floatLeft,
-.page .floatRight {
-  width: 43%;
-  max-width: 74mm;
-  margin-top: 2mm;
-  margin-bottom: 3mm;
+
+/* Riduce lo spazio dopo gli elementi wide */
+.page .wideImage + *,
+.page .wideTable + *,
+.page .wideFigure + * {
+  margin-top: 0;
+}
+
+
+/* =========================================================
+   NORMAL TABLES
+   Le tabelle normali rimangono nella singola colonna.
+   ========================================================= */
+
+.page table:not(.monster table) {
+  width: 100%;
+  max-width: 100%;
+
+  border-collapse: collapse;
+
+  box-sizing: border-box;
+
   break-inside: avoid;
   page-break-inside: avoid;
-}
-
-.page .floatLeft {
-  float: left;
-  margin-right: 5mm;
-  margin-left: 0;
-}
-
-.page .floatRight {
-  float: right;
-  margin-left: 5mm;
-  margin-right: 0;
-}
-
-.page .floatLeft img,
-.page .floatRight img {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin: 0;
-}
-
-.page .floatSoft {
-  shape-outside: ellipse(48% 48% at 50% 50%);
-  shape-margin: 3mm;
-}
-
-.page .floatRound {
-  shape-outside: circle(48% at 50% 50%);
-  shape-margin: 3mm;
-}
-
-.page .floatRect {
-  shape-outside: margin-box;
-  shape-margin: 2mm;
-}
-
-.page .clearFloat {
-  display: block;
-  clear: both;
-  height: 0;
-  margin: 0;
-  padding: 0;
-}
-
-/* EDITORIAL TABLES — stat blocks excluded */
-.page table:not(.monster table) {
-  border-collapse: collapse;
-  width: 100%;
 }
 
 .page table:not(.monster table) thead {
@@ -279,14 +424,18 @@
 
 .page table:not(.monster table) th {
   padding: 4px 6px;
+
   font-family: "Cinzel", serif;
   font-size: 8.5pt;
+
   vertical-align: bottom;
 }
 
 .page table:not(.monster table) td {
   padding: 4px 6px;
+
   border-top: 1px solid rgba(111,88,53,.28);
+
   vertical-align: top;
 }
 
@@ -298,17 +447,110 @@
   background-color: rgba(255,255,255,.18);
 }
 
+
+/* Tabelle compatte */
 .page table.dense th,
 .page table.dense td {
   padding: 2px 4px;
   font-size: .92em;
 }
 
+
+/* =========================================================
+   FLOATING ART WITH TEXT WRAP
+   ========================================================= */
+
+.page .floatLeft,
+.page .floatRight {
+  width: 43%;
+  max-width: 74mm;
+
+  margin-top: 2mm;
+  margin-bottom: 3mm;
+
+  box-sizing: border-box;
+
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.page .floatLeft {
+  float: left;
+
+  margin-right: 5mm;
+  margin-left: 0;
+}
+
+.page .floatRight {
+  float: right;
+
+  margin-left: 5mm;
+  margin-right: 0;
+}
+
+.page .floatLeft > p,
+.page .floatRight > p {
+  margin: 0;
+}
+
+.page .floatLeft img,
+.page .floatRight img {
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+
+  margin: 0;
+}
+
+
+/* PNG di personaggi, creature, oggetti */
+.page .floatSoft {
+  shape-outside: ellipse(48% 48% at 50% 50%);
+  shape-margin: 3mm;
+}
+
+
+/* Sigilli, medaglioni, simboli */
+.page .floatRound {
+  shape-outside: circle(48% at 50% 50%);
+  shape-margin: 3mm;
+}
+
+
+/* Immagini rettangolari */
+.page .floatRect {
+  shape-outside: margin-box;
+  shape-margin: 2mm;
+}
+
+
+/* Termine esplicito del wrapping */
+.page .clearFloat {
+  display: block;
+
+  clear: both;
+
+  width: 100%;
+  height: 0;
+
+  margin: 0;
+  padding: 0;
+}
+
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
 @media print {
+
   .page:has(.titlepage) {
     height: 100vh;
     width: 100vw;
   }
+
 }
 
 /* ---------------------------------------------------------
@@ -650,19 +892,35 @@
    ARTIST CREDITS
    --------------------------------------------------------- */
 
-.artist {
+.page .artist {
   position: absolute !important;
-  bottom: 100px;
-  left: 32px;
+  top: 350px;
+  right: 32px;
   width: 400px;
-  transform: rotate(-90deg);
-  transform-origin: bottom left;
-  text-align: left;
+  transform: rotate(90deg);
+  transform-origin: top right;
+  text-align: right;
   font-family: ScalySansSmallCapsRemake;
-  font-size: 11px;
+  font-size: 14px;
   text-transform: none;
-  color: #888;
+  color: var(--biblium-gold) !important;
   z-index: 204;
+}
+
+/* Homebrewery applica colori propri agli heading/link interni:
+   li sovrascriviamo esplicitamente per mantenere tutto l'artist credit dorato. */
+.page .artist h1,
+.page .artist h2,
+.page .artist h3,
+.page .artist h4,
+.page .artist h5,
+.page .artist h6,
+.page .artist p,
+.page .artist a,
+.page .artist span,
+.page .artist strong,
+.page .artist em {
+  color: var(--biblium-gold) !important;
 }
 
 /* ---------------------------------------------------------

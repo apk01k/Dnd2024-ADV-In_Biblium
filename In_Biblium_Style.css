@@ -23,7 +23,7 @@
   -----------------------------------------------------------
   Per stabilità il CSS punta alla copia ospitata nella repository
   dell'utente. Caricare la propria copia autorizzata come:
-  /fonts/Breathe_Fire.otf
+  /fonts/BreatheFire-65pg.ttf
 */
 @font-face {
   font-family: "Breathe Fire";
@@ -41,27 +41,36 @@
    --------------------------------------------------------- */
 
 .page {
-  --biblium-ink: #1b2631;
-  --biblium-navy: #24364b;
-  --biblium-blue: #405d78;
-  --biblium-gold: #b59652;
-  --biblium-gold-soft: #c9ad6a;
-  --biblium-burgundy: #6f3038;
-  --biblium-paper: #f4f0e8;
-  --biblium-paper-2: #e9e2d5;
-  --biblium-grey: #77736f;
-  --biblium-line: #b9ab94;
+  --fontTone-ink: #1b2631;
+  --fontTone-navy: #24364b;
+  --fontTone-blue: #405d78;
+  --fontTone-gold: #b59652;
+  --fontTone-gold-soft: #c9ad6a;
+  --fontTone-burgundy: #6f3038;
+  --fontTone-paper: #f4f0e8;
+  --fontTone-paper-2: #e9e2d5;
+  --fontTone-grey: #77736f;
+  --fontTone-line: #b9ab94;
 
   /* Font families */
   --font-medievalsharp: "MedievalSharp", serif;
   --font-cinzel-decorative: "Cinzel Decorative", "Cinzel", serif;
-  --font-kings: "Kings", cursive;
+  --font-king: "Kings", cursive;
   --font-zenda: "Zenda", "MedievalSharp", serif;
   --font-breathe-fire: "Breathe Fire", "MedievalSharp", fantasy;
   --font-cloister-black: "Cloister Black", "MedievalSharp", fantasy;
 
-  background-color: var(--biblium-paper);
-  color: var(--biblium-ink);
+  /* Geometria editoriale Homebrewery V3 */
+  --ml-page-pad-x: 1.7cm;
+  --ml-column-width: 8cm;
+  --ml-column-gap: 0.9cm;
+
+  background-color: var(--fontTone-paper);
+  color: var(--fontTone-ink);
+  width: 210mm;
+  height: 297mm;
+
+  box-sizing: border-box;
 }
 
 /* =========================================================
@@ -69,22 +78,17 @@
    Uso Homebrewery:
    {{fontMedievalSharp Testo}}
    {{fontCinzelDecorative Testo}}
-   {{fontKings Testo}}
+   {{fontKing Testo}}
    {{fontZenda Testo}}
    {{fontBreatheFire Testo}}
    {{fontCloisterBlack Testo}}
    ========================================================= */
 
 .page .fontMedievalSharp  { font-family: var(--font-medievalsharp); }
-
 .page .fontCinzelDecorative  { font-family: var(--font-cinzel-decorative); }
-
-.page .fontKings  { font-family: var(--font-kings); }
-
+.page .fontKing  { font-family: var(--font-king); }
 .page .fontZenda  { font-family: var(--font-zenda); }
-
 .page .fontBreatheFire  { font-family: var(--font-breathe-fire); }
-
 .page .fontCloisterBlack  { font-family: var(--font-cloister-black); }
 
 /* Varianti utili per titoli e capilettera */
@@ -104,13 +108,43 @@
   font-family: var(--font-zenda);
   font-size: 3.6em;
   line-height: 0.72;
-  color: var(--biblium-burgundy);
+  color: var(--fontTone-burgundy);
 }
 
 /* =========================================================
    LAYOUT EDITORIALE — derivato dal modello Dragonbane
    Mantiene l'identità grafica Magister Ludorum / In Biblium
    ========================================================= */
+
+/* =========================================================
+   COPERTINA — CORNICE AL POSTO DEL FOOTER PHB
+   ========================================================= */
+
+/* Il tema PHB V3 disegna il fregio inferiore con .page::after. */
+.page:first-child::after  { display: none !important; }
+
+/* Cornice propria della copertina. */
+.page .titlepage::before {
+  position: absolute;
+  inset: 6mm;
+
+  z-index: 30;
+
+  content: "";
+
+  box-sizing: border-box;
+
+  border: 3px double var(--fontTone-gold);
+  outline: 1px solid var(--fontTone-burgundy);
+  outline-offset: 2mm;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(201, 173, 106, 0.55),
+    inset 0 0 18px rgba(36, 54, 75, 0.18),
+    0 0 4px rgba(0, 0, 0, 0.12);
+
+  pointer-events: none;
+}
 
 /* COVERPAGE */
 .page:has(.titlepage) {
@@ -137,31 +171,71 @@
 
 .page .titlepage > p  { text-indent: 0; }
 
+.page .titlepage .coverShade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(19, 29, 42, 0.05) 0%,
+    rgba(19, 29, 42, 0.02) 38%,
+    rgba(19, 29, 42, 0.1) 57%,
+    rgba(19, 29, 42, 0.42) 100%
+  );
+
+  pointer-events: none;
+}
+
 .page .titlepage .coverLogo {
   position: absolute;
-  top: 20%;
+
+  top: 300px;
   left: 50%;
-  right: 0;
-  width: auto;
+  right: auto;
+
+  width: 380px;
+  max-width: calc(100% - 20mm);
+
   z-index: 6;
-  text-align: center;
+
   transform: translate(-50%, -50%);
+
+  text-align: center;
   pointer-events: none;
+
+  box-sizing: border-box;
 }
 
 .page .titlepage .coverLogo > p {
   width: 100%;
+
   margin: 0;
   padding: 0;
+
   text-align: center;
   text-indent: 0;
+
+  line-height: 0;
 }
 
 .page .titlepage .coverLogo img {
   display: block;
-  width: 380px;
-  height: auto;
-  margin: 0 auto;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width: none !important;
+  max-height: none !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  object-fit: cover;
+  object-position: center center;
+
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 .page .titlepage .coverTitle {
@@ -192,9 +266,9 @@
   );
 
   /* Cornice */
-  border: 3px double var(--biblium-gold);
+  border: 3px double var(--fontTone-gold);
 
-  outline: 1px solid var(--biblium-burgundy);
+  outline: 1px solid var(--fontTone-burgundy);
   outline-offset: -7px;
 
   box-shadow:
@@ -209,7 +283,7 @@
   top: 50%;
   transform: translateY(-50%);
 
-  color: var(--biblium-burgundy);
+  color: var(--fontTone-burgundy);
 
   font-family: "Cinzel Decorative", serif;
   font-size: 24px;
@@ -231,21 +305,22 @@
 }
 
 .page .titlepage .coverTitle h1 {
+  -webkit-column-span: none;
+  column-span: none;
+  clear: none;
   margin: 0 0 3mm;
   padding: 0;
   border: 0;
-  color: var(--biblium-navy);
-  font-family: "Breathe Fire", "Zenda", "MedievalSharp", serif;
+  color: var(--fontTone-navy);
+  font-family: var(--font-breathe-fire);
   font-size: 40pt;
   font-weight: 400;
   line-height: 1.05;
-
   letter-spacing: 0.06em;
   text-transform: uppercase;
-
   text-shadow:
     0 1px 0 #fff7e7,
-    0 2px 0 var(--biblium-gold),
+    0 2px 0 var(--fontTone-gold),
     0 3px 3px rgba(0, 0, 0, 0.25);
 }
 
@@ -253,7 +328,7 @@
 
 .page .titlepage .coverTitle h3 {
   margin: 1mm 0 3mm;
-  color: var(--biblium-burgundy);
+  color: var(--fontTone-burgundy);
   font-family: "Cinzel", serif;
   font-size: 14pt;
   font-weight: 700;
@@ -273,12 +348,13 @@
 }
 
 /*
-  AUDIT 2026-09:
-  - tabelle normali: singola colonna e break-inside:auto;
-  - .wideTable riservato alle sole tabelle realmente a doppia colonna;
-  - quattro layout immagine standardizzati;
-  - Breathe Fire corretto come TrueType e senza bold sintetico;
-  - stampa cover fissata a formato A4 reale.
+  CONSOLIDAMENTO EDITORIALE v17
+  - H1: Kings 34 pt, column-span all, riga oro;
+  - scene/location espresse semanticamente con H1;
+  - alias legacy e wrapper ridondanti rimossi;
+  - layout immagini/tabelle centralizzati;
+  - stat block, numerazione e print-friendly preservati;
+  - geometria di pagina raccolta in variabili.
 */
 
 /* =========================================================
@@ -296,7 +372,6 @@
 
 .page .floatLeft,
 .page .floatRight {
-  float: left;
   width: 43%;
   max-width: 74mm;
 
@@ -367,50 +442,523 @@
 }
 
 /* =========================================================
-   2. IMMAGINE SUL DIVISORIO TRA LE DUE COLONNE
+   PNG ART — SISTEMA IBRIDO STABILE v22
    ---------------------------------------------------------
-   Una singola immagine assoluta viene centrata sulla pagina.
-   Due float invisibili, uno per colonna, riservano lo spazio
-   necessario affinché il testo le giri attorno.
+   TRE MODALITÀ:
+
+   1. PNG NEL FLUSSO DELLA COLONNA
+      pngTop / pngMid
+      → il testo continua automaticamente dopo l'immagine.
+
+   2. PNG ANCORATO AL FONDO
+      pngBottom
+      → immagine assoluta + pngBottomWrap che impedisce
+        al testo di entrare nello spazio occupato dal PNG.
+
+   3. PNG CENTRALE FRA LE DUE COLONNE
+      centerArt + centerWrapLeft + centerWrapRight
+      → il testo delle due colonne gira attorno all'immagine.
+
+   DIMENSIONI:
+      pngSmall  = 60%
+      pngMedium = 100%
+      pngLarge  = 115%
+
    ========================================================= */
 
+/* =========================================================
+   A. PNG IN UNA SINGOLA COLONNA
+   ========================================================= */
+
+.page:has(.pngArt.pngBottom),
+.page:has(.centerArt)  { position: relative; }
+
+/* ---------------------------------------------------------
+   BASE
+   --------------------------------------------------------- */
+
+.page .pngArt {
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+
+  margin: 3mm 0;
+  padding: 0;
+
+  z-index: 6;
+
+  line-height: 0;
+  text-align: center;
+
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+
+  break-inside: avoid;
+  page-break-inside: avoid;
+
+  pointer-events: none;
+}
+
+/* Wrapper <p> generato da Homebrewery */
+
+.page .pngArt > p {
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  line-height: 0;
+  text-align: center;
+
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ---------------------------------------------------------
+   IMMAGINE
+   --------------------------------------------------------- */
+
+.page .pngArt img {
+  position: relative;
+
+  left: 50%;
+
+  display: block;
+
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  transform: translateX(-50%);
+
+  object-fit: contain;
+  object-position: center center;
+
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* =========================================================
+   DIMENSIONI
+   ========================================================= */
+
+/* 60% della colonna */
+
+.page .pngArt.pngSmall img  { width: 60% !important; }
+
+/* 100% della colonna */
+
+.page .pngArt.pngMedium img  { width: 100% !important; }
+
+/* 115% della colonna
+   → 7,5% oltre la colonna per ciascun lato
+   → resta perfettamente centrato */
+
+.page .pngArt.pngLarge img  { width: 115% !important; }
+
+/* =========================================================
+   COLONNA
+   ========================================================= */
+
+/*
+   pngLeft:
+   usa la colonna corrente.
+*/
+
+.page .pngArt.pngLeft:not(.pngBottom) {
+  break-before: auto;
+  -webkit-column-break-before: auto;
+}
+
+/*
+   pngRight:
+   se il blocco nasce nella colonna sinistra,
+   forza l'inizio della colonna destra.
+*/
+
+.page .pngArt.pngRight:not(.pngBottom) {
+  break-before: column;
+  -webkit-column-break-before: always;
+}
+
+/* =========================================================
+   POSIZIONE VERTICALE — TOP
+   ---------------------------------------------------------
+   Rimane nel normale flusso.
+   Inserire il blocco all'inizio della colonna.
+   ========================================================= */
+
+.page .pngArt.pngTop {
+  margin-top: 0;
+  margin-bottom: 4mm;
+}
+
+/* =========================================================
+   POSIZIONE VERTICALE — MID
+   ---------------------------------------------------------
+   Rimane nel normale flusso.
+
+   Inserire semplicemente il blocco nel punto del Markdown
+   in cui deve comparire.
+
+   Il testo precedente resta sopra.
+   Il testo successivo continua automaticamente sotto.
+   ========================================================= */
+
+.page .pngArt.pngMid {
+  margin-top: 4mm;
+  margin-bottom: 4mm;
+}
+
+/* =========================================================
+   POSIZIONE VERTICALE — BOTTOM
+   ---------------------------------------------------------
+   Questo è l'unico PNG assoluto.
+
+   L'immagine viene realmente ancorata al fondo della pagina.
+
+   Per evitare testo dietro all'immagine utilizzare
+   {{pngBottomWrap,...}} come PRIMO elemento della colonna.
+   ========================================================= */
+
+.page .pngArt.pngBottom {
+  position: absolute;
+
+  top: auto;
+  bottom: 16.5mm;
+
+  width: var(--ml-column-width);
+  max-width: var(--ml-column-width);
+
+  margin: 0;
+  padding: 0;
+
+  z-index: 6;
+}
+
+/* Fondo — colonna sinistra */
+
+.page .pngArt.pngBottom.pngLeft {
+  left: var(--ml-page-pad-x);
+  right: auto;
+}
+
+/* Fondo — colonna destra */
+
+.page .pngArt.pngBottom.pngRight {
+  left: auto;
+  right: var(--ml-page-pad-x);
+}
+
+/* =========================================================
+   BOTTOM WRAP
+   ---------------------------------------------------------
+   Riserva fisicamente la parte inferiore della colonna.
+
+   IMPORTANTE:
+   deve essere inserito PRIMA del testo della colonna.
+
+   Esempio:
+
+   {{pngBottomWrap,pngLarge}}
+
+   Testo...
+
+   {{pngArt,pngLeft,pngBottom,pngLarge
+   ![PNG](URL)
+   }}
+
+   Il float occupa virtualmente tutta l'altezza utile,
+   ma shape-outside esclude SOLO la zona inferiore.
+   Il testo può quindi riempire normalmente la parte alta.
+   ========================================================= */
+
+.page .pngBottomWrap {
+  --png-bottom-zone: 220mm;
+  --png-bottom-reserve: 82mm;
+
+  float: right;
+
+  width: 100%;
+  height: var(--png-bottom-zone);
+
+  margin: 0;
+  padding: 0;
+
+  background: transparent;
+
+  shape-outside: inset(calc(var(--png-bottom-zone) - var(--png-bottom-reserve)) 0 0 0);
+
+  shape-margin: 2mm;
+
+  pointer-events: none;
+}
+
+/* Altezza riservata — Small */
+
+.page .pngBottomWrap.pngSmall  { --png-bottom-reserve: 58mm; }
+
+/* Altezza riservata — Medium */
+
+.page .pngBottomWrap.pngMedium  { --png-bottom-reserve: 82mm; }
+
+/* Altezza riservata — Large */
+
+.page .pngBottomWrap.pngLarge  { --png-bottom-reserve: 108mm; }
+
+/* =========================================================
+   PNG PICCOLO CON VERO TEXT-WRAP
+   ---------------------------------------------------------
+   Da usare soprattutto con pngSmall.
+
+   pngWrapLeft:
+   immagine a sinistra, testo a destra.
+
+   pngWrapRight:
+   immagine a destra, testo a sinistra.
+   ========================================================= */
+
+.page .pngArt.pngWrapLeft,
+.page .pngArt.pngWrapRight {
+  width: 60%;
+  max-width: 60%;
+
+  margin-top: 2mm;
+  margin-bottom: 3mm;
+
+  pointer-events: none;
+}
+
+/* PNG a sinistra */
+
+.page .pngArt.pngWrapLeft {
+  float: left;
+
+  margin-right: 4mm;
+  margin-left: 0;
+
+  shape-outside: margin-box;
+  shape-margin: 2mm;
+}
+
+/* PNG a destra */
+
+.page .pngArt.pngWrapRight {
+  float: right;
+
+  margin-right: 0;
+  margin-left: 4mm;
+
+  shape-outside: margin-box;
+  shape-margin: 2mm;
+}
+
+/* Nei wrapper float l'immagine occupa tutto il wrapper */
+
+.page .pngArt.pngWrapLeft img,
+.page .pngArt.pngWrapRight img {
+  left: auto;
+
+  width: 100% !important;
+  max-width: 100% !important;
+
+  transform: none;
+}
+
+/* Profilo più morbido per PNG trasparenti */
+
+.page .pngArt.pngWrapLeft.pngSoft,
+.page .pngArt.pngWrapRight.pngSoft {
+  shape-outside: ellipse(48% 48% at 50% 50%);
+
+  shape-margin: 3mm;
+}
+
+/* Termina esplicitamente il wrapping */
+
+.page .pngClear {
+  display: block;
+
+  clear: both;
+
+  width: 100%;
+  height: 0;
+
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================================
+   B. PNG CENTRALE FRA LE DUE COLONNE
+   ---------------------------------------------------------
+   Immagine assoluta centrata rispetto alla pagina.
+
+   Due float invisibili:
+   - centerWrapLeft
+   - centerWrapRight
+
+   riservano soltanto la porzione delle colonne realmente
+   occupata dall'immagine.
+
+   Il testo può quindi stare:
+   - sopra;
+   - lateralmente;
+   - sotto.
+
+   top / mid / bottom spostano contemporaneamente
+   immagine e zona di esclusione.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   IMMAGINE CENTRALE
+   --------------------------------------------------------- */
+
 .page .centerArt {
+  --center-zone-top: 38mm;
+  --center-zone-height: 220mm;
+
+  --center-art-width: 66mm;
+  --center-art-height: 75mm;
+
   position: absolute;
 
   left: 50%;
+
+  width: var(--center-art-width);
+  height: var(--center-art-height);
+
+  margin: 0;
+  padding: 0;
+
+  z-index: 7;
+
+  line-height: 0;
+  text-align: center;
+
   transform: translateX(-50%);
 
-  width: 70mm;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
 
-  z-index: 6;
   pointer-events: none;
 }
 
 .page .centerArt > p {
+  width: 100%;
+  height: 100%;
+
   margin: 0;
   padding: 0;
+
   line-height: 0;
 }
 
 .page .centerArt img {
   display: block;
 
-  width: 100%;
-  max-width: 100%;
-  height: auto;
+  width: 100% !important;
+  height: 100% !important;
 
-  margin: 0 auto;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  object-fit: contain;
+  object-position: center center;
+
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
-/*
-  Valori di default calibrati per centerArt largo circa 70 mm.
-  Se si cambia molto la dimensione dell'immagine, adeguare
-  width/height dei due wrapper nel Markdown con proprietà inline.
-*/
+/* =========================================================
+   DIMENSIONI CENTER ART
+   ========================================================= */
+
+/* Small */
+
+.page .centerArt.pngSmall,
+.page .centerWrapLeft.pngSmall,
+.page .centerWrapRight.pngSmall {
+  --center-art-width: 48mm;
+  --center-art-height: 55mm;
+  --center-wrap-width: 20mm;
+}
+
+/* Medium */
+
+.page .centerArt.pngMedium,
+.page .centerWrapLeft.pngMedium,
+.page .centerWrapRight.pngMedium {
+  --center-art-width: 66mm;
+  --center-art-height: 75mm;
+  --center-wrap-width: 29mm;
+}
+
+/* Large */
+
+.page .centerArt.pngLarge,
+.page .centerWrapLeft.pngLarge,
+.page .centerWrapRight.pngLarge {
+  --center-art-width: 82mm;
+  --center-art-height: 95mm;
+  --center-wrap-width: 37mm;
+}
+
+/* =========================================================
+   POSIZIONE VERTICALE CENTER ART
+   ========================================================= */
+
+/* TOP */
+
+.page .centerArt.pngTop {
+  top: var(--center-zone-top);
+  bottom: auto;
+}
+
+/* MID */
+
+.page .centerArt.pngMid {
+  top: calc(var(--center-zone-top) + (var(--center-zone-height) - var(--center-art-height)) / 2);
+
+  bottom: auto;
+}
+
+/* BOTTOM */
+
+.page .centerArt.pngBottom {
+  top: calc(var(--center-zone-top) + var(--center-zone-height) - var(--center-art-height));
+
+  bottom: auto;
+}
+
+/* =========================================================
+   WRAPPER INVISIBILI DELLE DUE COLONNE
+   ========================================================= */
+
 .page .centerWrapLeft,
 .page .centerWrapRight {
-  height: 70mm;
-  width: 30mm;
+  --center-zone-height: 220mm;
+
+  --center-art-height: 75mm;
+  --center-wrap-width: 29mm;
+
+  --center-shape-top: calc((var(--center-zone-height) - var(--center-art-height)) / 2);
+
+  width: var(--center-wrap-width);
+  height: var(--center-zone-height);
+
+  margin: 0;
+  padding: 0;
 
   background: transparent;
 
@@ -420,23 +968,148 @@
   page-break-inside: avoid;
 }
 
+/* Parte destra della colonna sinistra */
+
 .page .centerWrapLeft {
   float: right;
 
   margin-right: -1mm;
-  margin-left: 2mm;
 
-  shape-outside: ellipse(72% 50% at 100% 50%);
+  shape-outside: inset(
+    var(--center-shape-top) 0
+      calc(var(--center-zone-height) - var(--center-shape-top) - var(--center-art-height)) 0
+  );
 }
+
+/* Parte sinistra della colonna destra */
 
 .page .centerWrapRight {
   float: left;
 
   margin-left: -1mm;
-  margin-right: 2mm;
 
-  shape-outside: ellipse(72% 50% at 0% 50%);
+  shape-outside: inset(
+    var(--center-shape-top) 0
+      calc(var(--center-zone-height) - var(--center-shape-top) - var(--center-art-height)) 0
+  );
 }
+
+/* =========================================================
+   POSIZIONE DELLE SHAPE
+   ========================================================= */
+
+/* TOP */
+
+.page .centerWrapLeft.pngTop,
+.page .centerWrapRight.pngTop  { --center-shape-top: 0mm; }
+
+/* MID */
+
+.page .centerWrapLeft.pngMid,
+.page .centerWrapRight.pngMid  { --center-shape-top: calc((var(--center-zone-height) - var(--center-art-height)) / 2); }
+
+/* BOTTOM */
+
+.page .centerWrapLeft.pngBottom,
+.page .centerWrapRight.pngBottom  { --center-shape-top: calc(var(--center-zone-height) - var(--center-art-height)); }
+
+/* =========================================================
+   COMPATIBILITÀ — VECCHIO pngReserve
+   ---------------------------------------------------------
+   Non è più necessario per il normale utilizzo.
+   Rimane per compatibilità con pagine già impaginate.
+   ========================================================= */
+
+.page .pngReserve {
+  display: block;
+
+  clear: both;
+
+  width: 100%;
+  height: 0;
+
+  margin: 0;
+  padding: 0;
+}
+
+/* Salto intenzionale alla colonna successiva */
+
+.page .pngReserve.pngNextColumn {
+  break-after: column;
+  -webkit-column-break-after: always;
+}
+
+/* =========================================================
+   2. IMMAGINE SUL DIVISORIO FRA LE DUE COLONNE
+   ---------------------------------------------------------
+   Layout stabile a tre aree:
+   testo sinistro | immagine | testo destro
+
+   Non richiede \column e non usa float invisibili.
+   ========================================================= */
+
+.page .centerSpread {
+  display: grid !important;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    var(--center-art-width, 66mm)
+    minmax(0, 1fr);
+
+  column-gap: 4mm;
+  align-items: center;
+
+  column-span: all;
+  clear: both;
+
+  width: 100%;
+  max-width: 100%;
+
+  margin: 1em 0 1.15em;
+
+  box-sizing: border-box;
+
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.page .centerSpreadLeft,
+.page .centerSpreadRight {
+  min-width: 0;
+
+  font-size: inherit;
+  line-height: inherit;
+  text-align: justify;
+}
+
+.page .centerSpreadLeft > :first-child,
+.page .centerSpreadRight > :first-child  { margin-top: 0; }
+
+.page .centerSpreadLeft > :last-child,
+.page .centerSpreadRight > :last-child  { margin-bottom: 0; }
+
+.page .centerSpreadArt {
+  min-width: 0;
+  line-height: 0;
+  text-align: center;
+}
+
+.page .centerSpreadArt img {
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+
+  margin: 0 auto;
+
+  object-fit: contain;
+}
+
+/* Varianti opzionali */
+.page .centerSpread.compact  { --center-art-width: 52mm; }
+
+.page .centerSpread.large  { --center-art-width: 78mm; }
 
 /* =========================================================
    3. ELEMENTI A LARGHEZZA DOPPIA COLONNA NEL FLUSSO
@@ -465,12 +1138,6 @@
 
 /* Immagine wide */
 .page .wideImage  { line-height: 0; }
-
-.page .wideImage > p {
-  margin: 0;
-  padding: 0;
-  line-height: 0;
-}
 
 .page .wideImage img {
   display: block;
@@ -511,7 +1178,7 @@
 .page .caption {
   margin-top: 1.5mm;
 
-  color: var(--biblium-grey);
+  color: var(--fontTone-grey);
 
   font-family: "Cinzel", serif;
   font-size: 7.5pt;
@@ -524,7 +1191,8 @@
 /* Riduce lo spazio dopo gli elementi wide */
 .page .wideImage + *,
 .page .wideTable + *,
-.page .wideFigure + *  { margin-top: 0; }
+.page .wideFigure + *,
+.page .centerSpread + *  { margin-top: 0; }
 
 /* =========================================================
    4. IMMAGINE WIDE NELLA PARTE BASSA DELLA PAGINA
@@ -548,11 +1216,13 @@
 
 .page:has(.bottomArtLarge) .columnWrapper  { height: 165mm !important; }
 
+.page:has(.wideImageBottom)  { position: relative; }
+
 .page .wideImageBottom {
   position: absolute;
 
-  left: 18mm;
-  right: 18mm;
+  left: var(--ml-page-pad-x);
+  right: var(--ml-page-pad-x);
   bottom: 18mm;
 
   z-index: 5;
@@ -562,12 +1232,6 @@
 
   break-inside: avoid;
   page-break-inside: avoid;
-}
-
-.page .wideImageBottom > p {
-  margin: 0;
-  padding: 0;
-  line-height: 0;
 }
 
 .page .wideImageBottom img {
@@ -582,6 +1246,121 @@
 
   object-fit: contain;
 }
+
+/* =========================================================
+   5. FULL PAGE ART
+   ---------------------------------------------------------
+   Pagina completamente occupata da una singola illustrazione.
+
+   Uso:
+
+   {{fullPageArt
+   ![Descrizione](URL_RAW)
+   }}
+
+   Variante senza ritaglio:
+   {{fullPageArt,contain
+   ![Descrizione](URL_RAW)
+   }}
+   ========================================================= */
+
+/* La pagina contenente l'illustrazione diventa a pieno formato */
+.page:has(.fullPageArt) {
+  position: relative;
+
+  padding: 0 !important;
+
+  column-count: 1 !important;
+
+  overflow: hidden;
+
+  background: var(--fontTone-paper);
+}
+
+/* Disattiva il normale layout a colonne */
+.page:has(.fullPageArt) .columnWrapper {
+  display: block !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  columns: 1 !important;
+}
+
+/* Contenitore dell'immagine */
+.page .fullPageArt {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  z-index: 10;
+
+  line-height: 0;
+
+  background: transparent;
+}
+
+/* Elimina il paragrafo aggiunto da Homebrewery */
+.page .fullPageArt > p {
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  line-height: 0;
+}
+
+/* Immagine full bleed */
+.page .fullPageArt img {
+  display: block;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width: none !important;
+  max-height: none !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  object-fit: cover;
+  object-position: center center;
+
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ---------------------------------------------------------
+   VARIANTE CONTAIN
+   ---------------------------------------------------------
+   Mostra tutta l'immagine senza tagliarla.
+   Può lasciare margini se il rapporto d'aspetto non è A4.
+   --------------------------------------------------------- */
+
+.page .fullPageArt.contain img  { object-fit: contain; }
+
+/* ---------------------------------------------------------
+   PULIZIA DELLA PAGINA ILLUSTRATA
+   --------------------------------------------------------- */
+
+/* Nasconde il numero ma la pagina continua a essere conteggiata */
+.page:has(.fullPageArt) .pageNumber  { display: none !important; }
+
+/* Rimuove il fregio inferiore PHB */
+.page:has(.fullPageArt)::after  { display: none !important; }
+
+/* Nasconde eventuali header/footer del tema */
+.page:has(.fullPageArt) .footnote  { display: none !important; }
 
 /* =========================================================
    TABELLE EDITORIALI NORMALI
@@ -608,12 +1387,12 @@
   page-break-inside: avoid;
 }
 
-.page table:not(.monster table) thead  { border-bottom: 2px solid var(--biblium-gold); }
+.page table:not(.monster table) thead  { border-bottom: 2px solid var(--fontTone-gold); }
 
 .page table:not(.monster table) th {
   padding: 4px 6px;
 
-  color: var(--biblium-navy);
+  color: var(--fontTone-navy);
   font-family: "Cinzel", serif;
   font-size: 8.5pt;
   font-weight: bold;
@@ -636,6 +1415,10 @@
 
 .page table:not(.monster table) tbody tr:nth-child(even)  { background-color: rgba(255, 255, 255, 0.18); }
 
+/* Tabella Markdown senza intestazione visibile */
+.page .noHeader table thead,
+.page table.noHeader thead  { display: none; }
+
 /* Tabelle compatte */
 .page table.dense th,
 .page table.dense td {
@@ -651,38 +1434,152 @@
 }
 
 /* =========================================================
-   PRINT
+   GERARCHIA DEI TITOLI
    ========================================================= */
-
-@media print {
-  .page:has(.titlepage) {
-    width: 210mm;
-    height: 297mm;
-  }
-}
-
-/* ---------------------------------------------------------
-   HEADINGS
-   --------------------------------------------------------- */
 
 .page h1,
 .page h2,
 .page h3,
-.page h4  { color: var(--biblium-navy); }
+.page h4 {
+  break-after: avoid;
+  page-break-after: avoid;
+}
 
-.page h1  { letter-spacing: 0.02em; }
+/* Livello 1 — capitolo, scena o appendice */
+.page h1 {
+  -webkit-column-span: all;
+  column-span: all;
+  clear: both;
+  margin: 0 0 4mm;
+  padding: 0 0 1.5mm;
+  color: var(--fontTone-burgundy);
+  font-family: var(--font-king);
+  font-size: 34pt;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.025em;
+  border: 0;
+  border-bottom: 2px solid var(--fontTone-gold);
+}
 
-.page h1::after  { background-color: var(--biblium-gold); }
+.page h1::after  { display: none !important; }
 
-.page h2  { border-bottom-color: var(--biblium-gold); }
+/* =========================================================
+   CAPOLETTERA — SOLO SU RICHIESTA
+   ---------------------------------------------------------
+   Neutralizza la drop cap automatica del tema PHB V3 dopo H1.
+   Per attivarla volontariamente: {{dropCap Testo...}}
+   ========================================================= */
 
-.page h3  { color: var(--biblium-burgundy); }
+.page h1 + p::first-letter {
+  float: none;
 
-.page h4  { color: var(--biblium-blue); }
+  margin: 0;
+  padding: 0;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+
+  color: inherit;
+
+  background: none;
+  border: 0;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.page h1 + p::first-line {
+  font-variant: normal;
+  text-transform: none;
+}
+
+.page .dropCap::first-letter {
+  float: left;
+
+  margin: 0.04em 0.1em 0 0;
+  padding: 0;
+
+  font-family: var(--font-zenda);
+  font-size: 3.6em;
+  font-weight: 400;
+  line-height: 0.78;
+
+  color: var(--fontTone-burgundy);
+
+  background: none;
+  border: 0;
+  box-shadow: none;
+}
+
+/* Lettera identificativa delle appendici:
+   evita glifi poco leggibili del display font Kings. */
+.page h1 .appendixLetter {
+  display: inline-block;
+
+  min-width: 0.72em;
+
+  font-family: var(--font-cinzel-decorative);
+  font-size: 0.76em;
+  font-weight: 700;
+  line-height: 1;
+
+  text-align: center;
+  vertical-align: 0.08em;
+  letter-spacing: 0;
+}
+
+/* Livello 2 — sezione interna */
+.page h2 {
+  margin-top: 3mm;
+  margin-bottom: 1.5mm;
+  color: var(--fontTone-burgundy);
+  font-family: "Cinzel", serif;
+  font-size: 16pt;
+  font-weight: 600;
+  border-bottom: 1px solid var(--fontTone-gold);
+}
+
+/* Livello 3 — sottosezione operativa */
+.page h3 {
+  margin-top: 2.5mm;
+  margin-bottom: 1mm;
+  color: var(--fontTone-burgundy);
+  font-family: "Cinzel", serif;
+  font-size: 11.5pt;
+  font-weight: 600;
+}
+
+/* Livello 4 — micro-reference */
+.page h4 {
+  color: var(--fontTone-blue);
+  font-family: "Cinzel", serif;
+  font-size: 10pt;
+  font-weight: 600;
+}
 
 .page a {
-  color: var(--biblium-burgundy);
-  text-decoration-color: var(--biblium-gold);
+  color: var(--fontTone-burgundy);
+  text-decoration-color: var(--fontTone-gold);
+}
+
+/* =========================================================
+   BOX EDITORIALI — BASE COMUNE
+   ========================================================= */
+
+.page .readaloud,
+.page .dmnote,
+.page .clue,
+.page .ruleBox,
+.page .handout  { box-sizing: border-box; }
+
+.page .readaloud,
+.page .dmnote,
+.page .clue {
+  margin: 8px 0;
+  padding: 8px 11px;
 }
 
 /* ---------------------------------------------------------
@@ -690,10 +1587,10 @@
    --------------------------------------------------------- */
 
 .page .readaloud {
-  margin: 8px 0 10px;
-  padding: 9px 12px 9px 15px;
+  margin-bottom: 10px;
+  padding-left: 15px;
   background: linear-gradient(90deg, rgba(181, 150, 82, 0.13), rgba(255, 255, 255, 0.18));
-  border-left: 4px solid var(--biblium-gold);
+  border-left: 4px solid var(--fontTone-gold);
   border-top: 1px solid rgba(181, 150, 82, 0.35);
   border-bottom: 1px solid rgba(181, 150, 82, 0.35);
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.08);
@@ -701,18 +1598,23 @@
   color: #252525;
 }
 
-.page .readaloud p:first-child  { margin-top: 0; }
-.page .readaloud p:last-child  { margin-bottom: 0; }
+.page .readaloud p:first-child,
+.page .dmnote p:first-child,
+.page .clue p:first-child,
+.page .ruleBox p:first-child  { margin-top: 0; }
+
+.page .readaloud p:last-child,
+.page .dmnote p:last-child,
+.page .clue p:last-child,
+.page .ruleBox p:last-child  { margin-bottom: 0; }
 
 /* ---------------------------------------------------------
    DM NOTE
    --------------------------------------------------------- */
 
 .page .dmnote {
-  margin: 8px 0;
-  padding: 8px 11px;
   background-color: rgba(36, 54, 75, 0.075);
-  border-left: 4px solid var(--biblium-navy);
+  border-left: 4px solid var(--fontTone-navy);
   border-radius: 2px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.07);
 }
@@ -721,7 +1623,7 @@
 .page .dmnote h4,
 .page .dmnote h3 {
   margin-top: 0;
-  color: var(--biblium-navy);
+  color: var(--fontTone-navy);
 }
 
 /* ---------------------------------------------------------
@@ -729,56 +1631,39 @@
    --------------------------------------------------------- */
 
 .page .clue {
-  margin: 8px 0;
-  padding: 8px 11px;
   background-color: rgba(201, 173, 106, 0.16);
   border: 1px solid rgba(181, 150, 82, 0.65);
-  border-left: 5px solid var(--biblium-gold);
+  border-left: 5px solid var(--fontTone-gold);
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 .page .clue h5,
 .page .clue h4 {
   margin-top: 0;
-  color: var(--biblium-burgundy);
+  color: var(--fontTone-burgundy);
 }
 
 /* ---------------------------------------------------------
    IN BIBLIUM RULE
    --------------------------------------------------------- */
 
-.page .bibliumRule {
+.page .ruleBox {
   margin: 10px 0;
   padding: 10px 14px;
   text-align: center;
   background: linear-gradient(135deg, rgba(36, 54, 75, 0.08), rgba(181, 150, 82, 0.12));
-  border-top: 2px solid var(--biblium-gold);
-  border-bottom: 2px solid var(--biblium-gold);
+  border-top: 2px solid var(--fontTone-gold);
+  border-bottom: 2px solid var(--fontTone-gold);
 }
 
-.page .bibliumRule h5,
-.page .bibliumRule h4,
-.page .bibliumRule h3 {
+.page .ruleBox h5,
+.page .ruleBox h4,
+.page .ruleBox h3 {
   margin: 0 0 4px;
-  color: var(--biblium-navy);
+  color: var(--fontTone-navy);
   font-variant: small-caps;
   letter-spacing: 0.08em;
 }
-
-.page .bibliumRule p:last-child  { margin-bottom: 0; }
-
-/* ---------------------------------------------------------
-   VIOLATION
-   --------------------------------------------------------- */
-
-.page .violation {
-  margin: 8px 0;
-  padding: 8px 11px;
-  background-color: rgba(111, 48, 56, 0.075);
-  border-left: 4px solid var(--biblium-burgundy);
-}
-
-.page .violation strong  { color: var(--biblium-burgundy); }
 
 /* ---------------------------------------------------------
    PLAYER HANDOUT / DELIVERABLE
@@ -789,15 +1674,15 @@
   margin: 10px 0;
   padding: 9px 12px;
   background: linear-gradient(135deg, rgba(181, 150, 82, 0.15), rgba(244, 240, 232, 0.85));
-  border: 1px solid var(--biblium-gold);
-  border-left: 5px solid var(--biblium-burgundy);
+  border: 1px solid var(--fontTone-gold);
+  border-left: 5px solid var(--fontTone-burgundy);
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .page .handout > h5:first-child {
   margin-top: 0;
   margin-bottom: 6px;
-  color: var(--biblium-burgundy);
+  color: var(--fontTone-burgundy);
   font-family: "Open Sans", sans-serif;
   font-size: 10px;
   font-weight: bold;
@@ -807,37 +1692,158 @@
 }
 
 /* ---------------------------------------------------------
-   DOCUMENT / LETTER
+   DOCUMENT / LETTER — MANOSCRITTO SU PERGAMENA
    --------------------------------------------------------- */
 
 .page .letter {
-  padding: 12px 16px;
-  background: linear-gradient(135deg, rgba(244, 240, 232, 0.94), rgba(231, 221, 200, 0.9));
-  border: 1px solid var(--biblium-line);
-  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
-  color: #302a24;
+  position: relative;
+
+  margin: 10px 0;
+  padding: 16px 20px 18px;
+
+  color: #3b2b21;
+
+  /* Scrittura manuale leggibile anche su testo lungo */
+  font-family: "Eagle Lake", var(--font-medievalsharp);
+  font-size: 9pt;
+  font-weight: 400;
+  line-height: 1.52;
+  letter-spacing: 0.012em;
+
+  text-align: left;
+
+  background:
+    radial-gradient(ellipse at 18% 12%, rgba(255, 252, 236, 0.72) 0%, rgba(255, 252, 236, 0) 34%),
+    radial-gradient(ellipse at 82% 78%, rgba(152, 112, 63, 0.1) 0%, rgba(152, 112, 63, 0) 42%),
+    linear-gradient(
+      103deg,
+      rgba(246, 239, 216, 0.98) 0%,
+      rgba(235, 222, 190, 0.96) 52%,
+      rgba(241, 231, 205, 0.97) 100%
+    );
+
+  border: 1px solid rgba(113, 82, 48, 0.38);
+  border-radius: 1px;
+
+  box-shadow:
+    0 2px 5px rgba(54, 38, 25, 0.16),
+    inset 0 0 18px rgba(101, 72, 41, 0.1);
+
+  text-shadow: 0 0.25px 0 rgba(55, 35, 24, 0.18);
+
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
-.page .letter p  { text-indent: 0; }
+.page .letter p {
+  margin-top: 0;
+  margin-bottom: 0.78em;
+  text-indent: 0;
+}
+
+.page .letter p:first-child  { margin-top: 0; }
+.page .letter p:last-child  { margin-bottom: 0; }
+
+.page .letter em {
+  color: #493426;
+  font-family: "Eagle Lake", var(--font-medievalsharp);
+  font-style: italic;
+}
+
+.page .letter::after {
+  position: absolute;
+  inset: 4px;
+
+  content: "";
+
+  border: 1px solid rgba(181, 150, 82, 0.12);
+
+  pointer-events: none;
+}
 
 /* ---------------------------------------------------------
-   LOCATION HEADER
+   FIRMA IN CALCE ALLA LETTERA
    --------------------------------------------------------- */
 
-.page .location {
-  margin: 3px 0 8px;
-  padding: 5px 8px 4px;
-  border-top: 2px solid var(--biblium-gold);
-  border-bottom: 1px solid var(--biblium-gold);
-  background: linear-gradient(90deg, rgba(181, 150, 82, 0.12), transparent);
+.page .letter .letterSignature {
+  width: 58%;
+
+  margin: 1.6em auto 0 36%;
+
+  padding-top: 0.7em;
+
+  text-align: center;
+
+  color: #35241b;
+
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
-.page .location h2 {
+/* Nome / vera firma */
+.page .letter .signatureName {
   margin: 0;
-  border: none;
-  color: var(--biblium-navy);
+
+  font-family: var(--font-zenda);
+  font-size: 1.9em;
+  font-weight: 400;
+  line-height: 0.95;
+
+  letter-spacing: 0.025em;
+
+  transform: rotate(-3deg);
+
+  color: #2f2119;
+
+  text-shadow: 0.3px 0.3px 0 rgba(65, 39, 24, 0.2);
 }
 
+/* Sottile tratto sotto la firma */
+.page .letter .signatureName::after {
+  display: block;
+
+  width: 72%;
+  height: 1px;
+
+  margin: 0.35em auto 0.5em;
+
+  content: "";
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(72, 45, 29, 0.65) 18%,
+    rgba(72, 45, 29, 0.65) 82%,
+    transparent
+  );
+
+  transform: rotate(-0.7deg);
+}
+
+/* Titoli */
+.page .letter .signatureTitles {
+  margin: 0;
+
+  font-family: "Eagle Lake", var(--font-medievalsharp);
+  font-size: 0.72em;
+  line-height: 1.35;
+
+  color: #594332;
+}
+
+/* Piccolo fregio finale */
+.page .letter .letterSignature::after {
+  display: block;
+
+  margin-top: 0.35em;
+
+  content: "❦";
+
+  font-family: var(--font-cinzel-decorative);
+  font-size: 1.25em;
+
+  color: var(--fontTone-gold);
+}
 /* ---------------------------------------------------------
    MOTTO
    --------------------------------------------------------- */
@@ -845,7 +1851,7 @@
 .page .motto {
   margin: 12px 0;
   text-align: center;
-  color: var(--biblium-navy);
+  color: var(--fontTone-navy);
   font-family: "Cinzel", "Nodesto", serif;
   font-size: 1.35em;
   font-variant: small-caps;
@@ -855,48 +1861,102 @@
 .page .motto::before,
 .page .motto::after {
   content: "◆";
-  color: var(--biblium-gold);
+  color: var(--fontTone-gold);
   padding: 0 10px;
 }
 
 /* =========================================================
-   PHB 2024 MONSTER FRAME
+   PHB 2024 MONSTER FRAME — VERSIONE AUDITATA
+   ---------------------------------------------------------
+   Varianti:
+   - monster.frame              = stat block standard, una colonna
+   - monster.frame.monsterKeep  = stat block breve da tenere unito
+   - monster.frame.monsterCompact = variante più compatta
+   - monster.frame.monsterWide  = stat block a doppia colonna
+
+   Il frame standard NON è forzato indivisibile, per evitare che
+   blocchi lunghi vengano spinti nella colonna successiva.
    ========================================================= */
 
 .page .monster.frame {
+  width: 100%;
+  max-width: 100%;
+
   padding: 6px 9px;
+
+  box-sizing: border-box;
+
   background-image: none;
   background-color: #f0ede8;
+
   border-image: none;
   border: 3px double #777;
   border-radius: 2px;
+
   box-shadow: 2px 2px 7px rgba(80, 80, 80, 0.38);
-  color: var(--biblium-ink);
+
+  color: var(--fontTone-ink);
+
+  overflow-wrap: anywhere;
+
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+/* Stat block breve: resta unito */
+.page .monster.frame.monsterKeep {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Stat block a doppia colonna */
+.page .monster.frame.monsterWide,
+.page .monster.frame.wide {
+  display: block !important;
+
+  column-span: all;
+  clear: both;
+
+  width: 100%;
+  max-width: 100%;
+
+  margin: 1em 0 1.15em;
+
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 .page .monster.frame h2 {
   width: 100%;
-  column-span: all;
+
+  padding-bottom: 2px;
+  margin-bottom: 4px;
+
+  color: var(--fontTone-burgundy);
+
   font-family: "Open Sans", sans-serif;
   font-variant: small-caps;
   font-size: 25px;
-  padding-bottom: 2px;
-  margin-bottom: 4px;
-  color: var(--biblium-navy);
-  border-bottom: 1px solid var(--biblium-gold);
+
+  border-bottom: 1px solid var(--fontTone-gold);
 }
 
 .page .monster.frame h2 + p {
-  color: var(--biblium-ink);
+  color: var(--fontTone-ink);
   font-size: 13px;
 }
 
 .page .monster.frame .block  { margin-top: 0; }
 
 .page .monster.frame h3 {
-  color: var(--biblium-burgundy);
+  color: var(--fontTone-burgundy);
+
   font-size: 18px;
+
   border-bottom-color: rgba(181, 150, 82, 0.55);
+
+  break-after: avoid;
+  page-break-after: avoid;
 }
 
 .page .monster.frame em,
@@ -907,55 +1967,177 @@
 .page .monster.frame p  { line-height: 1.23em; }
 
 .page .monster.frame .stats {
-  color: var(--biblium-navy);
+  width: 100%;
+  max-width: 100%;
+
   margin-top: 5px;
+
+  color: var(--fontTone-navy);
+
+  box-sizing: border-box;
 }
 
+/* Dati vitali: Grid stabile, non CSS multicolumn */
 .page .monster.frame .stats .vitals {
-  columns: 2;
-  column-gap: 10px;
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 2px 10px;
+
+  width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
 }
 
+.page .monster.frame .stats .vitalsCol  { min-width: 0; }
+
+.page .monster.frame .stats .vitalsCol > :first-child  { margin-top: 0; }
+
+.page .monster.frame .stats .vitalsCol > :last-child  { margin-bottom: 0; }
+
+/* Tabelle caratteristiche: Grid stabile a tre celle */
 .page .monster.frame .stats .tables {
-  columns: 3;
-  column-gap: 5px;
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 5px;
+
+  width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
+}
+
+.page .monster.frame .stats .tables > * {
+  min-width: 0;
+
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 .page .monster.frame .stats .tables table {
+  width: 100%;
+  max-width: 100%;
+
+  margin: 0;
+
   border-collapse: separate;
   border-spacing: 0 2px;
+  table-layout: fixed;
+
+  box-sizing: border-box;
 }
 
 .page .monster.frame .stats .tables table th {
-  color: #666;
-  font-weight: normal;
-  font-size: 8px;
   position: relative;
   top: 4px;
+
+  padding-left: 2px;
+  padding-right: 2px;
+
+  color: #666;
+
+  font-weight: normal;
+  font-size: 8px;
+
+  overflow-wrap: anywhere;
 }
 
-.page .monster.frame .stats .tables table td  { padding-top: 2px; }
+.page .monster.frame .stats .tables table td {
+  padding-top: 2px;
+
+  overflow-wrap: anywhere;
+}
 
 .page .monster.frame .stats .tables table tr:nth-of-type(odd) td  { background-color: #d9d0ca; }
 
 .page .monster.frame .stats .tables table tr:nth-of-type(odd) td:nth-of-type(-n + 2) {
+  padding-left: 4px;
+
   background-color: #e8e2d6;
+
   font-weight: bold;
   font-variant: small-caps;
-  padding-left: 4px;
 }
 
 .page .monster.frame .stats .tables table tr:nth-of-type(even) td  { background-color: #cbc6c8; }
 
 .page .monster.frame .stats .tables table tr:nth-of-type(even) td:nth-of-type(-n + 2) {
+  padding-left: 4px;
+
   background-color: #d2d6ce;
+
   font-weight: bold;
   font-variant: small-caps;
-  padding-left: 4px;
 }
 
 .page .monster.frame strong  { color: #252525; }
-.page .monster.frame .stats strong  { color: var(--biblium-navy); }
+
+.page .monster.frame .stats strong  { color: var(--fontTone-navy); }
+
+/* Variante compatta */
+.page .monster.frame.monsterCompact  { padding: 5px 8px; }
+
+.page .monster.frame.monsterCompact p,
+.page .monster.frame.monsterCompact em,
+.page .monster.frame.monsterCompact small-caps {
+  font-size: 12px;
+  line-height: 1.18em;
+}
+
+.page .monster.frame.monsterCompact h3  { font-size: 16px; }
+
+/* Maggiore respiro quando lo stat block occupa entrambe le colonne */
+.page .monster.frame.monsterWide .stats .vitals,
+.page .monster.frame.wide .stats .vitals  { gap: 3px 14px; }
+
+.page .monster.frame.monsterWide .stats .tables,
+.page .monster.frame.wide .stats .tables  { gap: 8px; }
+
+/* =========================================================
+   PAGE NUMBERS
+   ---------------------------------------------------------
+   La copertina è esclusa dal conteggio con {{skipCounting}}.
+   Lato invertito rispetto alla versione precedente:
+   dispari visualizzate a SINISTRA, pari visualizzate a DESTRA.
+   ========================================================= */
+
+.page:first-child .pageNumber  { display: none !important; }
+
+.page:not(:first-child) .pageNumber {
+  position: absolute;
+
+  bottom: 7mm;
+
+  width: 18mm;
+
+  z-index: 206;
+
+  color: var(--fontTone-gold);
+
+  font-family: "Cinzel", serif;
+  font-size: 9pt;
+  font-weight: 600;
+}
+
+/* Numero visualizzato dispari = pagina fisica pari → sinistra */
+.page:nth-child(even):not(:first-child) .pageNumber {
+  left: 6mm !important;
+  right: auto !important;
+
+  text-align: left;
+}
+
+/* Numero visualizzato pari = pagina fisica dispari → destra */
+.page:nth-child(odd):not(:first-child) .pageNumber {
+  left: auto !important;
+  right: 6mm !important;
+
+  text-align: right;
+}
 
 /* ---------------------------------------------------------
    ARTIST CREDITS
@@ -963,88 +2145,36 @@
 
 .page .artist {
   position: absolute !important;
-  top: 350px;
-  right: 32px;
+  top: 30px;
+  left: 370px;
   width: 400px;
-  transform: rotate(90deg);
+  transform: rotate(-90deg);
   transform-origin: top right;
   text-align: right;
   font-family: ScalySansSmallCapsRemake;
   font-size: 14px;
   text-transform: none;
-  color: var(--biblium-gold) !important;
+  color: var(--fontTone-gold) !important;
   z-index: 204;
 }
 
-/* Homebrewery applica colori propri agli heading/link interni:
-   li sovrascriviamo esplicitamente per mantenere tutto l'artist credit dorato. */
-.page .artist h1,
-.page .artist h2,
-.page .artist h3,
-.page .artist h4,
-.page .artist h5,
-.page .artist h6,
-.page .artist p,
-.page .artist a,
-.page .artist span,
-.page .artist strong,
-.page .artist em  { color: var(--biblium-gold) !important; }
+/* Mantiene dorati tutti gli elementi interni al credit. */
+.page .artist *  { color: var(--fontTone-gold) !important; }
 
-/* ---------------------------------------------------------
-   FOOTER
-   --------------------------------------------------------- */
+/* =========================================================
+   INTEGRITÀ DEI BLOCCHI EDITORIALI
+   ========================================================= */
 
-.footer {
-  --lines: 1;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 25px;
-  padding-top: calc(6px / var(--lines));
-  line-height: 0.4em;
-  text-align: center;
-  color: var(--biblium-gold-soft);
-  font-family: "nodesto";
-  font-variant: all-small-caps;
-  font-size: calc(2em - calc(0.1em * var(--lines)));
-  z-index: 205;
-  -webkit-text-stroke-width: 0.7px;
-  -webkit-text-stroke-color: var(--biblium-navy);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
-}
-
-.footer a  { color: var(--biblium-gold-soft); }
-
-/* ---------------------------------------------------------
-   UTILITIES
-   --------------------------------------------------------- */
-
-.page .label {
-  font-variant: small-caps;
-  font-weight: bold;
-  letter-spacing: 0.04em;
-  color: var(--biblium-navy);
-}
-
-.page .noIndent p  { text-indent: 0; }
-.page .center  { text-align: center; }
-.page .small  { font-size: 0.88em; }
-.page .tight p {
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
-.page .monster.frame,
 .page .readaloud,
 .page .dmnote,
 .page .clue,
-.page .bibliumRule,
+.page .ruleBox,
 .page .letter,
 .page .handout {
   break-inside: avoid;
   page-break-inside: avoid;
 }
+
 /* =========================================================
    PRINT-FRIENDLY MODE
    Attivazione globale:
@@ -1079,6 +2209,9 @@
   color: #111 !important;
   text-shadow: none !important;
 }
+
+.pages:has(.printFriendly) .page h1,
+.pages:has(.printFriendly) .page h2  { border-color: #555 !important; }
 
 .pages:has(.printFriendly) .page a {
   color: #111 !important;
@@ -1145,8 +2278,7 @@
 .pages:has(.printFriendly) .readaloud,
 .pages:has(.printFriendly) .dmnote,
 .pages:has(.printFriendly) .clue,
-.pages:has(.printFriendly) .bibliumRule,
-.pages:has(.printFriendly) .violation,
+.pages:has(.printFriendly) .ruleBox,
 .pages:has(.printFriendly) .handout,
 .pages:has(.printFriendly) .letter {
   background: white !important;
@@ -1165,8 +2297,6 @@
 .pages:has(.printFriendly) .dmnote  { border-left: 4px solid #222 !important; }
 
 .pages:has(.printFriendly) .clue  { border-left: 5px double #444 !important; }
-
-.pages:has(.printFriendly) .violation  { border-left: 4px solid #777 !important; }
 
 .pages:has(.printFriendly) .handout {
   border: 1px solid #666 !important;
@@ -1194,33 +2324,146 @@
 
 .pages:has(.printFriendly) .monster.frame .stats .tables table td  { background: white !important; }
 
+.pages:has(.printFriendly) .pageNumber  { color: #333 !important; }
+
 /* ---------------------------------------------------------
    FOOTER E ARTIST CREDIT
    --------------------------------------------------------- */
-
-.pages:has(.printFriendly) .footer,
-.pages:has(.printFriendly) .footer a {
-  color: #333 !important;
-
-  -webkit-text-stroke-width: 0 !important;
-  text-shadow: none !important;
-}
 
 .pages:has(.printFriendly) .artist,
 .pages:has(.printFriendly) .artist * {
   color: #444 !important;
   text-shadow: none !important;
 }
+/* ---------------------------------------------------------
+   Liste compatte
+   ---------------------------------------------------------*/
+.page ul,
+.page ol {
+  margin-top: 0em;
+  margin-bottom: 0.5em;
+}
 
+.page li {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Niente rientro nel paragrafo che introduce una lista */
+.page p:has(+ ul),
+.page p:has(+ ol) {
+  text-indent: 0;
+  margin-bottom: 0em;
+}
 /* ---------------------------------------------------------
    STAMPA
    --------------------------------------------------------- */
 
-@media print {
-  .pages:has(.printFriendly) .page {
-    width: 210mm;
-    height: 297mm;
+/* =========================================================
+   STAMPA PDF — A4
+   ========================================================= */
 
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .pages {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /*
+     NON ridimensionare nuovamente .page qui.
+     La dimensione A4 è già dichiarata nel CSS normale.
+  */
+  .page {
+    margin: 0 !important;
+
+    box-shadow: none !important;
+
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .page:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  /* =======================================================
+     COPERTINA — CLIPPING DI SICUREZZA
+     ======================================================= */
+
+  .page:has(.titlepage) {
+    position: relative;
+
+    padding: 0 !important;
+
+    column-count: 1 !important;
+
+    overflow: hidden !important;
+
+    contain: paint;
+    isolation: isolate;
+  }
+
+  .page:has(.titlepage) .columnWrapper {
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    columns: 1 !important;
+
+    overflow: hidden !important;
+  }
+
+  .page .titlepage {
+    position: absolute !important;
+
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    box-sizing: border-box !important;
+
+    contain: paint;
+  }
+
+  /* =======================================================
+     FULL PAGE ART
+     ======================================================= */
+
+  .page:has(.fullPageArt) {
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    contain: paint;
+  }
+
+  /* =======================================================
+     PRINT FRIENDLY
+     ======================================================= */
+
+  .pages:has(.printFriendly) .page {
     print-color-adjust: economy;
     -webkit-print-color-adjust: economy;
   }
